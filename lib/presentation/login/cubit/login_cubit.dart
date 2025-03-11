@@ -5,10 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
+import 'package:study_tracker_mobile/data/services/auth_service.dart';
 import 'package:study_tracker_mobile/presentation/login/cubit/login_state.dart';
+import 'package:study_tracker_mobile/presentation/resources/routes_manager.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   final storage = GetIt.instance<FlutterSecureStorage>();
+  final _authService = AuthService();
   LoginCubit()
       : super(LoginState(
           emailController: TextEditingController(),
@@ -62,21 +65,15 @@ class LoginCubit extends Cubit<LoginState> {
 
   //Fake login
   Future<void> login() async {
-    const fakeEmail = "bang";
-    const fakePassword = "bang";
-    Future.delayed(const Duration(seconds: 3));
-    if (state.emailController.text == fakeEmail &&
-        state.passwordController.text == fakePassword) {
-      if (state.isRemember) {
-        await saveCredentials();
-      } else {
-        await storage.delete(key: "email");
-        await storage.delete(key: "password");
-      }
-      emit(state.copyWith(errorMessage: ""));
-      print("✅ Đăng nhập thành công!");
-    } else {
-      emit(state.copyWith(errorMessage: "❌ Email hoặc mật khẩu sai"));
+    try {
+      await Future.delayed(const Duration(seconds: 2));
+      await _authService.signIn(
+        state.emailController.text,
+        state.passwordController.text,
+      );
+      Get.offAllNamed(Routes.mainRoute);
+    } catch (e) {
+      emit(state.copyWith(errorMessage: e.toString()));
     }
   }
 

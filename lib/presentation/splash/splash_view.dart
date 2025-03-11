@@ -38,10 +38,11 @@ class _SplashViewState extends State<SplashView> {
     final String? isLoginStr = await storage.read(key: "isLogin");
     final bool isLogin = isLoginStr == "true";
 
-    final bool isFirstTime = pref.getBool("isFirstTime") ?? false;
+    final bool isFirstTime = pref.getBool("isFirstTime") ?? true;
 
     if (mounted) {
       if (isFirstTime) {
+        pref.setBool("isFirstTime", false);
         Navigator.pushReplacementNamed(context, Routes.onBoardingRoute);
       } else if (isLogin) {
         Navigator.pushReplacementNamed(context, Routes.mainRoute);

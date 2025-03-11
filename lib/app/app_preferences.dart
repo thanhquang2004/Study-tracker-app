@@ -1,12 +1,12 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppPreferences {
-  final SharedPreferences _sharedPreferences;
-  final FlutterSecureStorage _secureStorage;
-
-  AppPreferences(this._sharedPreferences, this._secureStorage);
-
+  final SharedPreferences _sharedPreferences =
+      GetIt.instance<SharedPreferences>();
+  final FlutterSecureStorage _secureStorage =
+      GetIt.instance<FlutterSecureStorage>();
 
   Future<void> setUserToken(String token) async {
     _secureStorage
@@ -19,7 +19,6 @@ class AppPreferences {
     return _secureStorage.read(key: 'accessToken');
   }
 
-
   Future<void> setIsUserLoggedIn(bool value) async {
     _sharedPreferences.setBool('isLogin', value);
   }
@@ -31,6 +30,5 @@ class AppPreferences {
   Future<void> logout() async {
     _sharedPreferences.remove('isLogin');
     _secureStorage.delete(key: 'accessToken');
-    
   }
 }

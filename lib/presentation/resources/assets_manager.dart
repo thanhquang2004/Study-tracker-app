@@ -8,4 +8,6 @@ class ImageAssets {
   static const String onboardingLogo2 = "$IMAGE_PATH/onboarding_logo2.webp";
   static const String onboardingLogo3 = "$IMAGE_PATH/onboarding_logo3.webp";
   static const String onboardingLogo4 = "$IMAGE_PATH/onboarding_logo4.webp";
+  static const String homeIcon = "$ICON_PATH/home.svg";
+  static const String userIcon = "$ICON_PATH/user.svg";
 }
