@@ -19,18 +19,9 @@ class AppPreferences {
     return _secureStorage.read(key: 'accessToken');
   }
 
-  Future<void> setUserRole(String role) async {
-    _secureStorage
-        .write(key: 'role', value: role)
-        .then((value) => print('User ID saved'))
-        .catchError((error) => print('Error saving user ID: $error'));
-  }
-  Future<String?> getUserRole() async {
-    return _secureStorage.read(key: 'role');
-  }
 
-  Future<void> setIsUserLoggedIn() async {
-    _sharedPreferences.setBool('isLogin', true);
+  Future<void> setIsUserLoggedIn(bool value) async {
+    _sharedPreferences.setBool('isLogin', value);
   }
 
   Future<bool> isUserLoggedIn() async {
@@ -39,6 +30,7 @@ class AppPreferences {
 
   Future<void> logout() async {
     _sharedPreferences.remove('isLogin');
-    _secureStorage.deleteAll();
+    _secureStorage.delete(key: 'accessToken');
+    
   }
 }
