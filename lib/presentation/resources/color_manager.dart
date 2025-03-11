@@ -9,6 +9,8 @@ class XColors {
   static const accent1 = Color(0xFFFF8A42); // Cam sáng hơn
   static const accent2 = Color(0xFFFFC9A3); // Cam pastel
 
+  static const semanticShadowBox = Color(0xFF031B34); // Xám
+
   static const semanticError = Color(0xFFFF3B30); // Đỏ lỗi
   static const semanticSuccess = Color(0xFF00B386); // Xanh lá tươi hơn
   static const semanticWarning = Color(0xFFFFB020); // Vàng đậm hơn

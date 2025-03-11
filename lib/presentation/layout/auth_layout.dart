@@ -54,17 +54,35 @@ class _AuthenticateLayoutState extends State<AuthenticateLayout> {
   }
 
   Widget _buildLogo() {
-    return SizedBox(
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: AppSize.s20),
       width: double.infinity,
       height: Constants.deviceHeight * 0.35,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        spacing: AppSize.s20,
         children: [
-          SvgPicture.asset(ImageAssets.authLogo, fit: BoxFit.contain),
-          const SizedBox(height: AppSize.s14),
-          Text(
-            AppStrings.appName,
-            style: getSemiBoldStyle(color: XColors.neutral_1, fontSize: 30),
+          Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                color: XColors.semanticShadowBox.withOpacity(0.02),
+                blurRadius: 14,
+                offset: const Offset(0, 0),
+              ),
+              BoxShadow(
+                color: XColors.semanticShadowBox.withOpacity(0.02),
+                blurRadius: 44,
+                offset: const Offset(0, 10),
+              ),
+            ]),
+            child: SvgPicture.asset(ImageAssets.authLogo, fit: BoxFit.contain),
+          ),
+          Align(
+            child: Text(
+              AppStrings.appName,
+              style: getSemiBoldStyle(color: XColors.neutral_1, fontSize: 30),
+            ),
           ),
         ],
       ),
