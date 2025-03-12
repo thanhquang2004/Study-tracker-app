@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:study_tracker_mobile/app/constant.dart';
 import 'package:study_tracker_mobile/presentation/resources/color_manager.dart';
+import 'package:study_tracker_mobile/presentation/resources/font_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/styles_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/value_manager.dart';
 import 'package:study_tracker_mobile/presentation/widget/custom_button.dart';
@@ -24,11 +25,12 @@ class ConfirmAlert extends StatelessWidget {
     return AlertDialog(
       title: Text(
         'Warning',
-        style: getBoldStyle(color: XColors.primary),
+        style: getBoldStyle(color: XColors.neutral_1, fontSize: FontSize.s24),
       ),
       content: Text(
         content,
-        style: getSemiBoldStyle(color: XColors.primary2),
+        style:
+            getSemiBoldStyle(color: XColors.neutral_1, fontSize: FontSize.s16),
         textAlign: TextAlign.center,
       ),
       actions: <Widget>[
@@ -57,6 +59,7 @@ class ConfirmAlert extends StatelessWidget {
               title: title,
               onPressed: onConfirm,
               width: 0.3 * Constants.deviceWidth,
+              backgroundColor: XColors.semanticError,
             )
           ],
         ),
