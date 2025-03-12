@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:study_tracker_mobile/app/constant.dart';
 import 'package:study_tracker_mobile/presentation/resources/assets_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/color_manager.dart';
+import 'package:study_tracker_mobile/presentation/resources/font_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/strings_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/styles_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/value_manager.dart';
@@ -16,8 +17,8 @@ class AuthenticateLayout extends StatefulWidget {
   final VoidCallback? buttonSubmit;
   final Widget? otherButton;
   final String? errorText;
-  final String? prefixNavigateText;
-  final String? navigateText;
+  final String prefixNavigateText;
+  final String navigateText;
   final VoidCallback? navigate;
 
   const AuthenticateLayout({
@@ -27,10 +28,10 @@ class AuthenticateLayout extends StatefulWidget {
     this.buttonSubmit,
     this.helpText,
     this.otherButton,
-    this.prefixNavigateText,
-    this.navigateText,
+    required this.prefixNavigateText,
+    required this.navigateText,
     this.navigate,
-    this.errorText,
+    this.errorText = "",
   });
 
   @override
@@ -112,17 +113,19 @@ class _AuthenticateLayoutState extends State<AuthenticateLayout> {
             widget.title,
             style: getBoldStyle(color: XColors.neutral_1, fontSize: 21),
           ),
+          const SizedBox(height: AppSize.s16),
           if (widget.listTextField!.isNotEmpty) ...widget.listTextField!,
           if (widget.errorText!.isNotEmpty) _buildErrorText(),
           if (widget.helpText != null) _buildHelpText(),
           const SizedBox(height: AppSize.s16),
           CustomButton(
-              title: widget.title,
-              onPressed: widget.buttonSubmit,
-              width: double.infinity),
+            title: widget.title,
+            onPressed: widget.buttonSubmit,
+            fontSize: FontSize.s20,
+            width: double.infinity,
+          ),
           if (widget.otherButton != null) widget.otherButton!,
-          if (widget.prefixNavigateText != null && widget.navigateText != null)
-            _buildNavigationText(),
+          _buildNavigationText(),
         ],
       ),
     );
@@ -155,17 +158,12 @@ class _AuthenticateLayoutState extends State<AuthenticateLayout> {
             widget.prefixNavigateText!,
             style: getRegularStyle(color: XColors.neutral_1, fontSize: 16),
           ),
-          TextButton(
+          CustomButton(
+            width: 0,
+            title: widget.navigateText,
             onPressed: widget.navigate,
-            style: TextButton.styleFrom(
-              padding: EdgeInsets.zero,
-              minimumSize: Size.zero,
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
-            child: Text(
-              widget.navigateText!,
-              style: getRegularStyle(color: XColors.primary, fontSize: 16),
-            ),
+            type: ButtonType.text,
+            enableSplash: false,
           ),
         ],
       ),

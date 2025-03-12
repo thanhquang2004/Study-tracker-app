@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:study_tracker_mobile/presentation/dashboard/view/dashboard_view.dart';
 import 'package:study_tracker_mobile/presentation/login/view/login_view.dart';
 import 'package:study_tracker_mobile/presentation/onboarding/view/onboarding_view.dart';
+import 'package:study_tracker_mobile/presentation/register/register_view.dart';
 import 'package:study_tracker_mobile/presentation/resources/strings_manager.dart';
 import 'package:study_tracker_mobile/presentation/splash/splash_view.dart';
 
@@ -24,14 +25,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => LoginView());
       case Routes.onBoardingRoute:
         return MaterialPageRoute(builder: (_) => OnboardingView());
-      // case Routes.registerRoute:
-      //   return MaterialPageRoute(builder: (_) => RegisterView());
-      // case Routes.forgotPasswordRoute:
-      //   return MaterialPageRoute(builder: (_) => ForgotPasswordView());
+      case Routes.registerRoute:
+        return MaterialPageRoute(builder: (_) => RegisterView());
       case Routes.mainRoute:
         return MaterialPageRoute(builder: (_) => Dashboard());
-      // case Routes.storeDetailsRoute:
-      //   return MaterialPageRoute(builder: (_) => StoreDetailsView());
       default:
         return unDefinedRoute();
     }

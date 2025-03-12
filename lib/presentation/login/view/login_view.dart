@@ -73,7 +73,7 @@ class _LoginViewState extends State<LoginView> {
             ),
             buttonSubmit: context.read<LoginCubit>().login,
             errorText: state.errorMessage,
-            prefixNavigateText: 'Chưa có tài khoản?',
+            prefixNavigateText: AppStrings.haveNotAccount,
             navigateText: AppStrings.register,
             navigate: () {
               Navigator.pushNamed(context, Routes.registerRoute);

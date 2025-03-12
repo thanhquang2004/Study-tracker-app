@@ -30,4 +30,7 @@ class AppStrings {
 
   static const String logout = "Đăng xuất";
   static const String confirmLogout = "Bạn có chắc chắn muốn đăng xuất?";
+
+  static const String haveAccount = "Đã có tài khoản?";
+  static const String haveNotAccount = "Chưa có tài khoản?";
 }

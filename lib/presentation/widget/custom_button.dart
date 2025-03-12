@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:study_tracker_mobile/app/constant.dart';
 import 'package:study_tracker_mobile/presentation/resources/color_manager.dart';
+import 'package:study_tracker_mobile/presentation/resources/font_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/styles_manager.dart';
 
 enum ButtonType { elevated, outlined, text }
@@ -12,7 +13,8 @@ class CustomButton extends StatelessWidget {
   final double? width; //Chiều rộng (tùy chọn)
   final double? height; //Chiều cao (tùy chọn)
   final Color? backgroundColor; //Màu nền nút
-  final Color? textColor; //Màu chữ trên nút
+  final Color? textColor;
+  final double? fontSize; //Màu chữ trên nút
   final Color? borderColor; //Màu viền (chỉ áp dụng cho outlined)
   final double borderRadius; //Độ bo góc
   final IconData? icon; //Icon hiển thị (nếu có)
@@ -29,6 +31,7 @@ class CustomButton extends StatelessWidget {
     this.height,
     this.backgroundColor,
     this.textColor,
+    this.fontSize,
     this.borderColor,
     this.borderRadius = 15.0,
     this.icon,
@@ -44,6 +47,7 @@ class CustomButton extends StatelessWidget {
         (type == ButtonType.elevated ? XColors.primary : Colors.transparent);
     final Color finalTextColor = textColor ??
         (type == ButtonType.elevated ? Colors.white : XColors.primary);
+    final double finalFontSize = fontSize ?? FontSize.s16;
     final Color finalBorderColor = borderColor ?? XColors.primary;
 
     return Material(
@@ -83,7 +87,11 @@ class CustomButton extends StatelessWidget {
                 Icon(icon, color: finalTextColor, size: 20),
                 const SizedBox(width: 6),
               ],
-              Text(title, style: getSemiBoldStyle(color: finalTextColor)),
+              Text(title,
+                  style: getSemiBoldStyle(
+                    color: finalTextColor,
+                    fontSize: finalFontSize,
+                  )),
               if (icon != null && iconRight) ...[
                 const SizedBox(width: 6),
                 Icon(icon, color: finalTextColor, size: 20),
