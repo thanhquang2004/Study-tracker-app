@@ -72,12 +72,10 @@ class _LoginViewState extends State<LoginView> {
               ],
             ),
             buttonSubmit: context.read<LoginCubit>().login,
-            errorText: state.errorMessage,
+            errorText: state.isError ? state.errorMessage : "",
             prefixNavigateText: AppStrings.haveNotAccount,
             navigateText: AppStrings.register,
-            navigate: () {
-              Navigator.pushNamed(context, Routes.registerRoute);
-            },
+            navigate: () => Navigator.pushNamed(context, Routes.registerRoute),
           );
         },
       ),

@@ -30,6 +30,7 @@ class AuthService implements AuthRepository {
       //   throw Exception(response.data['message'] ?? "Đăng nhập thất bại");
       // }
       await Future.delayed(const Duration(seconds: 2));
+      _checkValidateLogin(email, password);
       if (email == 'test' && password == '123') {
         await _storage.write(key: "isLogin", value: "true");
       } else {
@@ -50,8 +51,51 @@ class AuthService implements AuthRepository {
   }
 
   @override
-  Future<void> signUp(String fullName, String email, String password) {
-    // TODO: implement signUp
-    throw UnimplementedError();
+  Future<void> signUp(String fullName, String email, String password) async {
+    try {
+      await Future.delayed(const Duration(seconds: 2));
+      _checkValidateRegister(fullName, email, password);
+      if (email == 'test' && password == '123') {
+      } else {
+        throw "Đăng ký thất bại";
+      }
+    } on DioException catch (e) {
+      if (e.response != null) {
+        throw (e.error ?? "Đăng nhập thất bại");
+      } else {
+        throw ("Không thể kết nối đến máy chủ");
+      }
+    }
+  }
+
+  void _checkValidateLogin(String email, String password) {
+    if (email.isEmpty) {
+      throw ("Email không được để trống");
+    }
+    if (password.isEmpty) {
+      throw ("Mật khẩu không được để trống");
+    }
+  }
+
+  void _checkValidateRegister(
+    String fullName,
+    String email,
+    String password,
+  ) {
+    if (fullName.isEmpty) {
+      throw ("Họ tên không được để trống");
+    }
+    if (email.isEmpty) {
+      throw ("Email không được để trống");
+    }
+    if (!email.contains('@')) {
+      throw ("Email không hợp lệ");
+    }
+    if (password.isEmpty) {
+      throw ("Mật khẩu không được để trống");
+    }
+    if (password.length < 8) {
+      throw ("Mật khẩu phải lớn hơn 8 ký tự");
+    }
   }
 }

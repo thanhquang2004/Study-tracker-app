@@ -74,9 +74,11 @@ class LoginCubit extends Cubit<LoginState> {
         state.passwordController.text,
       );
       Get.back();
+      emit(state.copyWith(isError: false));
       Get.offAllNamed(Routes.mainRoute);
     } catch (e) {
-      emit(state.copyWith(errorMessage: e.toString()));
+      Get.back();
+      emit(state.copyWith(isError: true,errorMessage: e.toString()));
     }
   }
 
