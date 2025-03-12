@@ -19,65 +19,68 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginCubit, LoginState>(
-      builder: (context, state) {
-        return AuthenticateLayout(
-          title: AppStrings.login,
-          listTextField: [
-            AuthenTextField(
-              controller: state.emailController,
-              label: AppStrings.email,
-              hint: AppStrings.email,
-              prefixIcon: Icons.email,
-            ),
-            AuthenTextField(
-              controller: state.passwordController,
-              label: AppStrings.password,
-              hint: AppStrings.password,
-              prefixIcon: Icons.lock,
-              isPassword: true,
-            ),
-          ],
-          helpText: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            spacing: AppSize.s8,
-            children: [
-              SizedBox(
-                height: AppSize.s20,
-                width: AppSize.s20,
-                child: Checkbox(
-                  value: state.isRemember,
-                  onChanged: (value) {
-                    context.read<LoginCubit>().toggleRemember();
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(AppSize.s4),
-                  ),
-                  side: const BorderSide(
-                    color: XColors.primary,
-                    width: 2,
-                  ),
-                  activeColor: XColors.primary2,
-                ),
+    return BlocProvider(
+      create: (context) => LoginCubit(),
+      child: BlocBuilder<LoginCubit, LoginState>(
+        builder: (context, state) {
+          return AuthenticateLayout(
+            title: AppStrings.login,
+            listTextField: [
+              AuthenTextField(
+                controller: state.emailController,
+                label: AppStrings.email,
+                hint: AppStrings.email,
+                prefixIcon: Icons.email,
               ),
-              Text(
-                AppStrings.rememberMe,
-                style: TextStyle(
-                  color: XColors.neutral_5,
-                  fontSize: AppSize.s16,
-                ),
+              AuthenTextField(
+                controller: state.passwordController,
+                label: AppStrings.password,
+                hint: AppStrings.password,
+                prefixIcon: Icons.lock,
+                isPassword: true,
               ),
             ],
-          ),
-          buttonSubmit: context.read<LoginCubit>().login,
-          errorText: state.errorMessage,
-          prefixNavigateText: 'Chưa có tài khoản?',
-          navigateText: AppStrings.register,
-          navigate: () {
-            Navigator.pushNamed(context, Routes.registerRoute);
-          },
-        );
-      },
+            helpText: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              spacing: AppSize.s8,
+              children: [
+                SizedBox(
+                  height: AppSize.s20,
+                  width: AppSize.s20,
+                  child: Checkbox(
+                    value: state.isRemember,
+                    onChanged: (value) {
+                      context.read<LoginCubit>().toggleRemember();
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(AppSize.s4),
+                    ),
+                    side: const BorderSide(
+                      color: XColors.primary,
+                      width: 2,
+                    ),
+                    activeColor: XColors.primary2,
+                  ),
+                ),
+                Text(
+                  AppStrings.rememberMe,
+                  style: TextStyle(
+                    color: XColors.neutral_5,
+                    fontSize: AppSize.s16,
+                  ),
+                ),
+              ],
+            ),
+            buttonSubmit: context.read<LoginCubit>().login,
+            errorText: state.errorMessage,
+            prefixNavigateText: 'Chưa có tài khoản?',
+            navigateText: AppStrings.register,
+            navigate: () {
+              Navigator.pushNamed(context, Routes.registerRoute);
+            },
+          );
+        },
+      ),
     );
   }
 }

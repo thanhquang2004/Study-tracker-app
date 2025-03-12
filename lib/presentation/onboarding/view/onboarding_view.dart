@@ -29,78 +29,81 @@ class _OnboardingViewState extends State<OnboardingView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocListener<OnboardingCubit, int>(
-        listener: (context, state) {
-          _pageController.animateToPage(
-            state,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
-          );
-        },
-        child: BlocBuilder<OnboardingCubit, int>(
-          builder: (context, state) {
-            final cubit = context.read<OnboardingCubit>();
-            return SafeArea(
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: CustomButton(
-                      title: "Bỏ qua",
-                      type: ButtonType.text,
-                      onPressed: () {
-                        cubit.skipOnboarding(context);
-                      },
-                      enableSplash: false,
+      body: BlocProvider(
+        create: (context) => OnboardingCubit(),
+        child: BlocListener<OnboardingCubit, int>(
+          listener: (context, state) {
+            _pageController.animateToPage(
+              state,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+            );
+          },
+          child: BlocBuilder<OnboardingCubit, int>(
+            builder: (context, state) {
+              final cubit = context.read<OnboardingCubit>();
+              return SafeArea(
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: CustomButton(
+                        title: "Bỏ qua",
+                        type: ButtonType.text,
+                        onPressed: () {
+                          cubit.skipOnboarding(context);
+                        },
+                        enableSplash: false,
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    flex: 6,
-                    child: PageView.builder(
-                      controller: _pageController,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: cubit.pages.length,
-                      onPageChanged: (index) =>
-                          cubit.emit(index), // Cập nhật state khi vuốt
-                      itemBuilder: (context, index) {
-                        final page = cubit.pages[index];
-                        return _buildPage(
-                            page.title, page.description, page.image);
-                      },
+                    Expanded(
+                      flex: 6,
+                      child: PageView.builder(
+                        controller: _pageController,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: cubit.pages.length,
+                        onPageChanged: (index) =>
+                            cubit.emit(index), // Cập nhật state khi vuốt
+                        itemBuilder: (context, index) {
+                          final page = cubit.pages[index];
+                          return _buildPage(
+                              page.title, page.description, page.image);
+                        },
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(
-                      cubit.pages.length,
-                      (index) => AnimatedContainer(
-                        duration: const Duration(milliseconds: 300),
-                        margin: const EdgeInsets.symmetric(horizontal: 4),
-                        width: 8,
-                        height: 8,
-                        decoration: BoxDecoration(
-                          color: state == index ? Colors.blue : Colors.grey,
-                          shape: BoxShape.circle,
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                        cubit.pages.length,
+                        (index) => AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          margin: const EdgeInsets.symmetric(horizontal: 4),
+                          width: 8,
+                          height: 8,
+                          decoration: BoxDecoration(
+                            color: state == index ? Colors.blue : Colors.grey,
+                            shape: BoxShape.circle,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: CustomButton(
-                      title: state < cubit.pages.length - 1
-                          ? AppStrings.next
-                          : AppStrings.start,
-                      onPressed: () => cubit.nextPage(context),
+                    SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: CustomButton(
+                        title: state < cubit.pages.length - 1
+                            ? AppStrings.next
+                            : AppStrings.start,
+                        onPressed: () => cubit.nextPage(context),
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 40),
-                ],
-              ),
-            );
-          },
+                    SizedBox(height: 40),
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

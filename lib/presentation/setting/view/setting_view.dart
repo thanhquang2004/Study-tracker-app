@@ -18,15 +18,18 @@ class _SettingViewState extends State<SettingView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<SettingCubit, SettingState>(
-        builder: (context, state) {
-          return ListView(
-            children: [
-              buildCircleAvatar(),
-              buildMenuSettings(state.settings),
-            ],
-          );
-        },
+      body: BlocProvider(
+        create: (context) => SettingCubit()..loadSettings(),
+        child: BlocBuilder<SettingCubit, SettingState>(
+          builder: (context, state) {
+            return ListView(
+              children: [
+                buildCircleAvatar(),
+                buildMenuSettings(state.settings),
+              ],
+            );
+          },
+        ),
       ),
     );
   }

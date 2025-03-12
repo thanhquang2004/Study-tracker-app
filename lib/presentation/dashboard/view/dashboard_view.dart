@@ -13,46 +13,27 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  late DashboardCubit _dashboardCubit;
-
-  @override
-  void initState() {
-    super.initState();
-    // Kiểm tra nếu chưa có DashboardCubit thì khởi tạo
-    _dashboardCubit = Get.isRegistered<DashboardCubit>()
-        ? Get.find<DashboardCubit>()
-        : Get.put(DashboardCubit());
-
-    _dashboardCubit.reset(); // Đảm bảo về trang HomeView khi khởi tạo
-  }
-
-  @override
-  void dispose() {
-    // Xóa Cubit khi Dashboard bị hủy
-    if (Get.isRegistered<DashboardCubit>()) {
-      Get.delete<DashboardCubit>();
-    }
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DashboardCubit, DashboardState>(
-      bloc: _dashboardCubit,
-      builder: (context, state) {
-        return Scaffold(
-          body: IndexedStack(
-            index: state.selectedIndex,
-            children: state.pages,
-          ),
-          bottomNavigationBar: CustomNavigationBar(
-            selectedIndex: state.selectedIndex,
-            onTabSelected: (index) {
-              _dashboardCubit.changeTab(index);
-            },
-          ),
-        );
-      },
+    return BlocProvider(
+      create: (context) => DashboardCubit(),
+      child: BlocBuilder<DashboardCubit, DashboardState>(
+        builder: (context, state) {
+          return Scaffold(
+            body: IndexedStack(
+              index: state.selectedIndex,
+              children: state.pages,
+            ),
+            bottomNavigationBar: CustomNavigationBar(
+              selectedIndex: state.selectedIndex,
+              onTabSelected: (index) {
+                context.read<DashboardCubit>().changeTab(index);
+              },
+            ),
+            
+          );
+        },
+      ),
     );
   }
 }

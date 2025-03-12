@@ -10,8 +10,5 @@ Future<void> main() async {
   await dotenv.load(fileName: ".env");
   await setupDI();
 
-  runApp(MultiBlocProvider(
-    providers: blocProviderManager,
-    child: MyApp(),
-  ));
+  runApp(MyApp());
 }
