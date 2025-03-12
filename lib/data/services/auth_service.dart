@@ -25,11 +25,11 @@ class AuthService implements AuthRepository {
       //       key: "access_token", value: response.data['access_token']);
       //   await _storage.write(
       //       key: "refresh_token", value: response.data['refresh_token']);
-      //   
+      //
       // } else {
       //   throw Exception(response.data['message'] ?? "Đăng nhập thất bại");
       // }
-
+      await Future.delayed(const Duration(seconds: 2));
       if (email == 'test' && password == '123') {
         await _storage.write(key: "isLogin", value: "true");
       } else {
@@ -46,13 +46,11 @@ class AuthService implements AuthRepository {
 
   @override
   Future<void> signOut() {
-    // TODO: implement signOut
-    throw UnimplementedError();
+    return _storage.delete(key: 'isLogin');
   }
 
   @override
-  Future<void> signUp(
-      String fullName, String email, String password) {
+  Future<void> signUp(String fullName, String email, String password) {
     // TODO: implement signUp
     throw UnimplementedError();
   }

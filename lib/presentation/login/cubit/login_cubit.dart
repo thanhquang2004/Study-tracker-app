@@ -6,8 +6,10 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:study_tracker_mobile/data/services/auth_service.dart';
+import 'package:study_tracker_mobile/presentation/dashboard/cubit/dashboard_cubit.dart';
 import 'package:study_tracker_mobile/presentation/login/cubit/login_state.dart';
 import 'package:study_tracker_mobile/presentation/resources/routes_manager.dart';
+import 'package:study_tracker_mobile/presentation/widget/loading_dialog.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   final storage = GetIt.instance<FlutterSecureStorage>();
@@ -43,7 +45,7 @@ class LoginCubit extends Cubit<LoginState> {
     saveCredentials();
   }
 
-  // Load dữ liệu từ storage khi remember me được bật
+  // Load dữ liệu từ storage khi remember me đưthaợc bật
   Future<void> loadSavedCredentials() async {
     final email = await storage.read(key: "email") ?? "";
     final password = await storage.read(key: "password") ?? "";
@@ -66,11 +68,12 @@ class LoginCubit extends Cubit<LoginState> {
   //Fake login
   Future<void> login() async {
     try {
-      await Future.delayed(const Duration(seconds: 2));
+      Get.dialog(LoadingDialog());
       await _authService.signIn(
         state.emailController.text,
         state.passwordController.text,
       );
+      Get.back();
       Get.offAllNamed(Routes.mainRoute);
     } catch (e) {
       emit(state.copyWith(errorMessage: e.toString()));

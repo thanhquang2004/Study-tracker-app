@@ -25,4 +25,9 @@ class AppStrings {
   static const String email = "Email";
   static const String password = "Mật khẩu";
   static const String confirmPassword = "Xác nhận mật khẩu";
+
+  static const String information = "Thông tin cá nhân";
+
+  static const String logout = "Đăng xuất";
+  static const String confirmLogout = "Bạn có chắc chắn muốn đăng xuất?";
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:study_tracker_mobile/presentation/dashboard/view/dashboard_view.dart';
 import 'package:study_tracker_mobile/presentation/login/view/login_view.dart';
-import 'package:study_tracker_mobile/presentation/onboarding/onboarding_view.dart';
+import 'package:study_tracker_mobile/presentation/onboarding/view/onboarding_view.dart';
 import 'package:study_tracker_mobile/presentation/resources/strings_manager.dart';
 import 'package:study_tracker_mobile/presentation/splash/splash_view.dart';
 
