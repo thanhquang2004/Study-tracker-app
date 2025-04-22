@@ -1,0 +1,2 @@
+D:/flutter tutor/study_tracker_mobile/android/app/.cxx/Debug/5p1l92z2/x86/CMakeFiles/edit_cache.dir
+D:/flutter tutor/study_tracker_mobile/android/app/.cxx/Debug/5p1l92z2/x86/CMakeFiles/rebuild_cache.dir

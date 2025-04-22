@@ -1,12 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:study_tracker_mobile/data/config/api_service.dart';
 import 'package:study_tracker_mobile/domain/repository/auth_repository.dart';
 import 'package:study_tracker_mobile/presentation/resources/api_manager.dart';
 
 class AuthService implements AuthRepository {
   final _apiService = GetIt.instance.get<ApiService>();
+  final _pref = GetIt.instance.get<SharedPreferences>();
   final _storage = GetIt.instance.get<FlutterSecureStorage>();
 
   @override
@@ -32,7 +34,7 @@ class AuthService implements AuthRepository {
       await Future.delayed(const Duration(seconds: 2));
       _checkValidateLogin(email, password);
       if (email == 'test' && password == '123') {
-        await _storage.write(key: "isLogin", value: "true");
+        await _pref.setBool('isLogin', true);
       } else {
         throw Exception("Đăng nhập thất bại");
       }
@@ -46,8 +48,9 @@ class AuthService implements AuthRepository {
   }
 
   @override
-  Future<void> signOut() {
-    return _storage.delete(key: 'isLogin');
+  Future<void> signOut() async {
+    await _pref.setBool('isLogin', false);
+    await _storage.deleteAll();
   }
 
   @override

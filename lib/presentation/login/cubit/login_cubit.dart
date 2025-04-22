@@ -6,7 +6,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:study_tracker_mobile/data/services/auth_service.dart';
-import 'package:study_tracker_mobile/presentation/dashboard/cubit/dashboard_cubit.dart';
 import 'package:study_tracker_mobile/presentation/login/cubit/login_state.dart';
 import 'package:study_tracker_mobile/presentation/resources/routes_manager.dart';
 import 'package:study_tracker_mobile/presentation/widget/loading_dialog.dart';

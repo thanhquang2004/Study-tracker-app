@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:study_tracker_mobile/presentation/dashboard/view/dashboard_view.dart';
+import 'package:study_tracker_mobile/presentation/home/view/home_view.dart';
 import 'package:study_tracker_mobile/presentation/login/view/login_view.dart';
 import 'package:study_tracker_mobile/presentation/onboarding/view/onboarding_view.dart';
 import 'package:study_tracker_mobile/presentation/register/view/register_view.dart';
@@ -28,7 +28,7 @@ class RouteGenerator {
       case Routes.registerRoute:
         return MaterialPageRoute(builder: (_) => RegisterView());
       case Routes.mainRoute:
-        return MaterialPageRoute(builder: (_) => Dashboard());
+        return MaterialPageRoute(builder: (_) => HomeView());
       default:
         return unDefinedRoute();
     }
