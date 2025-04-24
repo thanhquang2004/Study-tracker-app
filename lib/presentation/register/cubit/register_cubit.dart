@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:study_tracker_mobile/app/helper.dart';
 import 'package:study_tracker_mobile/data/services/auth_service.dart';
 import 'package:study_tracker_mobile/presentation/register/cubit/register_state.dart';
 import 'package:study_tracker_mobile/presentation/resources/routes_manager.dart';
@@ -31,10 +32,19 @@ class RegisterCubit extends Cubit<RegisterState> {
         'username': state.usernameController.text,
         'email': state.emailController.text,
         'name': state.usernameController.text,
-        'dob': state.dobController.text,
+        'dob': (state.dobController.text),
         'password': state.passwordController.text,
         'occupation': state.occupation,
       };
+      if (state.passwordController.text !=
+          state.confirmPasswordController.text) {
+        Get.back();
+        emit(state.copyWith(
+          isError: true,
+          errorMessage: "Mật khẩu không khớp",
+        ));
+        return;
+      }
       await _authService
           .signUp(
         data,

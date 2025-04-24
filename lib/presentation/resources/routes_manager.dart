@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:study_tracker_mobile/presentation/chat/view/chat_view.dart';
 import 'package:study_tracker_mobile/presentation/home/view/home_view.dart';
 import 'package:study_tracker_mobile/presentation/login/view/login_view.dart';
 import 'package:study_tracker_mobile/presentation/onboarding/view/onboarding_view.dart';
@@ -14,6 +15,7 @@ class Routes {
   static const String forgotPasswordRoute = "/forgotPassword";
   static const String mainRoute = "/main";
   static const String storeDetailsRoute = "/storeDetails";
+  static const String chat = "/chat";
 }
 
 class RouteGenerator {
@@ -29,6 +31,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => RegisterView());
       case Routes.mainRoute:
         return MaterialPageRoute(builder: (_) => HomeView());
+      case Routes.chat:
+        return MaterialPageRoute(builder: (_) => ChatView());
       default:
         return unDefinedRoute();
     }

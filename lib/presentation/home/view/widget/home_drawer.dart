@@ -24,7 +24,7 @@ class HomeDrawer extends StatelessWidget {
                   _buildMenuItem(
                     context,
                     icon: Icons.person,
-                    title: 'Profile',
+                    title: 'Thông tin cá nhân',
                     onTap: () {
                       Navigator.pop(context);
                       // TODO: Navigate to profile
@@ -33,7 +33,7 @@ class HomeDrawer extends StatelessWidget {
                   _buildMenuItem(
                     context,
                     icon: Icons.edit,
-                    title: 'Edit Profile',
+                    title: 'Đổi mật khẩu',
                     onTap: () {
                       Navigator.pop(context);
                       // TODO: Navigate to edit profile
@@ -42,7 +42,7 @@ class HomeDrawer extends StatelessWidget {
                   _buildMenuItem(
                     context,
                     icon: Icons.notifications,
-                    title: 'Notifications',
+                    title: 'Thông báo',
                     onTap: () {
                       Navigator.pop(context);
                       // TODO: Navigate to notifications
@@ -51,7 +51,7 @@ class HomeDrawer extends StatelessWidget {
                   _buildMenuItem(
                     context,
                     icon: Icons.settings,
-                    title: 'Settings',
+                    title: 'Cài đặt ',
                     onTap: () {
                       Navigator.pop(context);
                       // TODO: Navigate to settings
@@ -61,7 +61,7 @@ class HomeDrawer extends StatelessWidget {
                   _buildMenuItem(
                     context,
                     icon: Icons.logout,
-                    title: 'Logout',
+                    title: 'Đăng xuất',
                     isDanger: true,
                     onTap: () {
                       Navigator.pop(context);
