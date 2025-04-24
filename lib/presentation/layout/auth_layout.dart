@@ -12,7 +12,7 @@ import 'package:study_tracker_mobile/presentation/widget/custom_button.dart';
 
 class AuthenticateLayout extends StatefulWidget {
   final String title;
-  final List<AuthenTextField>? listTextField;
+  final List<Widget>? listTextField;
   final Widget? helpText;
   final VoidCallback? buttonSubmit;
   final Widget? otherButton;
@@ -20,6 +20,7 @@ class AuthenticateLayout extends StatefulWidget {
   final String prefixNavigateText;
   final String navigateText;
   final VoidCallback? navigate;
+  final double? height;
 
   const AuthenticateLayout({
     super.key,
@@ -32,6 +33,7 @@ class AuthenticateLayout extends StatefulWidget {
     required this.navigateText,
     this.navigate,
     this.errorText = "",
+    this.height,
   });
 
   @override
@@ -41,28 +43,31 @@ class AuthenticateLayout extends StatefulWidget {
 class _AuthenticateLayoutState extends State<AuthenticateLayout> {
   @override
   Widget build(BuildContext context) {
+    final double? logoHeight =
+        widget.height != null ? Constants.deviceHeight - widget.height! : null;
     return Scaffold(
       backgroundColor: XColors.neutral_8,
       body: SingleChildScrollView(
         child: Column(
           children: [
-            _buildLogo(),
-            _buildFormContainer(),
+            _buildLogo(height: logoHeight),
+            _buildFormContainer(height: widget.height),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildLogo() {
+  Widget _buildLogo({double? height}) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: AppSize.s20),
       width: double.infinity,
-      height: Constants.deviceHeight * 0.35,
+      height: height ?? Constants.deviceHeight * 0.35,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
-        spacing: AppSize.s20,
+        mainAxisSize: MainAxisSize.min,
+        spacing: 0.01 * Constants.deviceHeight,
         children: [
           Container(
             decoration: BoxDecoration(boxShadow: [
@@ -77,7 +82,11 @@ class _AuthenticateLayoutState extends State<AuthenticateLayout> {
                 offset: const Offset(0, 10),
               ),
             ]),
-            child: SvgPicture.asset(ImageAssets.authLogo, fit: BoxFit.contain),
+            child: SvgPicture.asset(
+              ImageAssets.authLogo,
+              fit: BoxFit.contain,
+              height: 0.35 * (height ?? Constants.deviceHeight * 0.35),
+            ),
           ),
           Align(
             child: Text(
@@ -90,14 +99,13 @@ class _AuthenticateLayoutState extends State<AuthenticateLayout> {
     );
   }
 
-  Widget _buildFormContainer() {
+  Widget _buildFormContainer({double? height}) {
     return Container(
       width: double.infinity,
-      height: Constants.deviceHeight * 0.65,
+      height: height ?? Constants.deviceHeight * 0.65,
       padding: const EdgeInsets.symmetric(
         horizontal: AppSize.s20,
-        vertical: AppSize.s20,
-      ),
+      ).copyWith(top: AppSize.s20),
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(color: XColors.neutral_7),
@@ -113,7 +121,7 @@ class _AuthenticateLayoutState extends State<AuthenticateLayout> {
             widget.title,
             style: getBoldStyle(color: XColors.neutral_1, fontSize: 21),
           ),
-          const SizedBox(height: AppSize.s16),
+          const SizedBox(height: AppSize.s8),
           if (widget.listTextField!.isNotEmpty) ...widget.listTextField!,
           if (widget.errorText!.isNotEmpty) _buildErrorText(),
           if (widget.helpText != null) _buildHelpText(),
@@ -133,7 +141,7 @@ class _AuthenticateLayoutState extends State<AuthenticateLayout> {
 
   Widget _buildErrorText() {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: AppSize.s16),
+      padding: const EdgeInsets.symmetric(vertical: AppSize.s8),
       child: Text(
         widget.errorText!,
         style: getRegularStyle(color: XColors.semanticError, fontSize: 16),
@@ -150,18 +158,19 @@ class _AuthenticateLayoutState extends State<AuthenticateLayout> {
 
   Widget _buildNavigationText() {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: AppSize.s16),
+      padding: const EdgeInsets.symmetric(vertical: AppSize.s8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             widget.prefixNavigateText!,
-            style: getRegularStyle(color: XColors.neutral_1, fontSize: 16),
+            style: getRegularStyle(color: XColors.neutral_1, fontSize: 12),
           ),
           CustomButton(
             width: 0,
             title: widget.navigateText,
             onPressed: widget.navigate,
+            fontSize: FontSize.s12,
             type: ButtonType.text,
             enableSplash: false,
           ),

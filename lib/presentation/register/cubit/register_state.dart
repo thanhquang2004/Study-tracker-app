@@ -2,10 +2,12 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 class RegisterState extends Equatable {
-  final TextEditingController fullNameController;
+  final TextEditingController usernameController;
   final TextEditingController emailController;
+  final TextEditingController dobController;
   final TextEditingController passwordController;
   final TextEditingController confirmPasswordController;
+  final String occupation;
   final bool isPasswordVisible;
   final bool isConfirmPasswordVisible;
   final bool isRemember;
@@ -13,10 +15,12 @@ class RegisterState extends Equatable {
   final String errorMessage;
 
   const RegisterState({
-    required this.fullNameController,
+    required this.usernameController,
     required this.emailController,
+    required this.dobController,
     required this.passwordController,
     required this.confirmPasswordController,
+    required this.occupation,
     this.isPasswordVisible = false,
     this.isConfirmPasswordVisible = false,
     this.isRemember = false,
@@ -25,10 +29,12 @@ class RegisterState extends Equatable {
   });
 
   RegisterState copyWith({
-    TextEditingController? fullNameController,
+    TextEditingController? usernameController,
     TextEditingController? emailController,
+    TextEditingController? dobController,
     TextEditingController? passwordController,
     TextEditingController? confirmPasswordController,
+    String? occupation,
     bool? isPasswordVisible,
     bool? isConfirmPasswordVisible,
     bool? isRemember,
@@ -36,8 +42,10 @@ class RegisterState extends Equatable {
     String? errorMessage,
   }) {
     return RegisterState(
-      fullNameController: fullNameController ?? this.fullNameController,
+      usernameController: usernameController ?? this.usernameController,
       emailController: emailController ?? this.emailController,
+      dobController: dobController ?? this.dobController,
+      occupation: occupation ?? this.occupation,
       passwordController: passwordController ?? this.passwordController,
       confirmPasswordController:
           confirmPasswordController ?? this.confirmPasswordController,
@@ -52,9 +60,11 @@ class RegisterState extends Equatable {
 
   @override
   List<Object?> get props => [
-        fullNameController,
+        usernameController,
         emailController,
         passwordController,
+        dobController,
+        occupation,
         confirmPasswordController,
         isPasswordVisible,
         isConfirmPasswordVisible,

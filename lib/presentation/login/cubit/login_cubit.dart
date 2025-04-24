@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:get_it/get_it.dart';
 import 'package:study_tracker_mobile/data/services/auth_service.dart';
 import 'package:study_tracker_mobile/presentation/login/cubit/login_state.dart';
@@ -41,7 +42,6 @@ class LoginCubit extends Cubit<LoginState> {
     emit(state.copyWith(
       isRemember: !state.isRemember,
     ));
-    saveCredentials();
   }
 
   // Load dữ liệu từ storage khi remember me đưthaợc bật
@@ -52,6 +52,9 @@ class LoginCubit extends Cubit<LoginState> {
       emit(state.copyWith(isRemember: false));
       return;
     }
+    Future.delayed(
+      const Duration(milliseconds: 500),
+    );
     emit(state.copyWith(
       emailController: TextEditingController(text: email),
       passwordController: TextEditingController(text: password),
@@ -59,25 +62,36 @@ class LoginCubit extends Cubit<LoginState> {
     ));
   }
 
+  Future<void> clearSavedCredentials() async {
+    await storage.write(key: "isRemember", value: "false");
+    await storage.delete(key: "email");
+    await storage.delete(key: "password");
+  }
+
   Future<void> saveCredentials() async {
     await storage.write(key: "email", value: state.emailController.text);
     await storage.write(key: "password", value: state.passwordController.text);
   }
 
-  //Fake login
   Future<void> login() async {
     try {
       Get.dialog(LoadingDialog());
       await _authService.signIn(
-        state.emailController.text,
-        state.passwordController.text,
+        state.emailController.text.trim(),
+        state.passwordController.text.trim(),
       );
       Get.back();
       emit(state.copyWith(isError: false));
+      if (state.isRemember) {
+        await saveCredentials();
+      } else {
+        await clearSavedCredentials();
+      }
       Get.offAllNamed(Routes.mainRoute);
     } catch (e) {
       Get.back();
-      emit(state.copyWith(isError: true,errorMessage: e.toString()));
+      await clearSavedCredentials();
+      emit(state.copyWith(isError: true, errorMessage: e.toString()));
     }
   }
 

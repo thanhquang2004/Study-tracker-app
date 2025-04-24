@@ -10,19 +10,43 @@ class RegisterCubit extends Cubit<RegisterState> {
   final _authService = AuthService();
   RegisterCubit()
       : super(RegisterState(
-          fullNameController: TextEditingController(),
+          usernameController: TextEditingController(),
           emailController: TextEditingController(),
           passwordController: TextEditingController(),
           confirmPasswordController: TextEditingController(),
+          dobController: TextEditingController(),
+          occupation: "",
         ));
+
+  void setOccupation(String value) {
+    print('Occupation selected: $value');
+    emit(state.copyWith(occupation: value));
+    print('Occupation in state: ${state.occupation}');
+  }
 
   Future<void> register() async {
     try {
       Get.dialog(LoadingDialog());
+      final data = {
+        'username': state.usernameController.text,
+        'email': state.emailController.text,
+        'name': state.usernameController.text,
+        'dob': state.dobController.text,
+        'password': state.passwordController.text,
+        'occupation': state.occupation,
+      };
       await _authService.signUp(
-        state.fullNameController.text,
-        state.emailController.text,
-        state.passwordController.text,
+        data,
+      ).timeout(
+        const Duration(seconds: 10),
+        onTimeout: () {
+          Get.back();
+          emit(state.copyWith(
+            isError: true,
+            errorMessage: "Hệ thống đang bận, vui lòng thử lại sau",
+          ));
+          return;
+        },
       );
       Get.back();
       emit(state.copyWith(
@@ -39,7 +63,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     }
   }
 
-  void navigateToLogin(BuildContext context) {
-    Navigator.pushNamed(context, Routes.loginRoute);
+  void navigateToLogin() {
+    Get.offAllNamed(Routes.loginRoute);
   }
 }

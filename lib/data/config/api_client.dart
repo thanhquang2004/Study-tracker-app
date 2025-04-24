@@ -14,7 +14,6 @@ class ApiClient {
     };
 
     dio.options = BaseOptions(
-      baseUrl: dotenv.env['BASE_URL'] ?? 'Lỗi lấy dữ liệu từ server',
       connectTimeout: Duration(seconds: 30),
       receiveTimeout: Duration(seconds: 30),
       headers: headers,

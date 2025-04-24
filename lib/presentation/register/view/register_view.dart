@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:study_tracker_mobile/app/constant.dart';
 import 'package:study_tracker_mobile/presentation/layout/auth_layout.dart';
 import 'package:study_tracker_mobile/presentation/register/cubit/register_cubit.dart';
 import 'package:study_tracker_mobile/presentation/register/cubit/register_state.dart';
 import 'package:study_tracker_mobile/presentation/resources/strings_manager.dart';
+import 'package:study_tracker_mobile/presentation/widget/authen_dropdow.dart';
 import 'package:study_tracker_mobile/presentation/widget/authen_field.dart';
 
 class RegisterView extends StatefulWidget {
@@ -21,12 +23,13 @@ class _RegisterViewState extends State<RegisterView> {
       child:
           BlocBuilder<RegisterCubit, RegisterState>(builder: (context, state) {
         return AuthenticateLayout(
+          height: 0.78 * Constants.deviceHeight,
           title: AppStrings.register,
           listTextField: [
             AuthenTextField(
-              controller: state.fullNameController,
-              label: AppStrings.fullName,
-              hint: AppStrings.fullName,
+              controller: state.usernameController,
+              label: AppStrings.username,
+              hint: AppStrings.username,
               prefixIcon: Icons.person,
             ),
             AuthenTextField(
@@ -34,6 +37,12 @@ class _RegisterViewState extends State<RegisterView> {
               label: AppStrings.email,
               hint: AppStrings.email,
               prefixIcon: Icons.email,
+            ),
+            AuthenTextField(
+              controller: state.dobController,
+              label: AppStrings.dob,
+              hint: AppStrings.dob,
+              prefixIcon: Icons.calendar_today,
             ),
             AuthenTextField(
               controller: state.passwordController,
@@ -49,6 +58,17 @@ class _RegisterViewState extends State<RegisterView> {
               prefixIcon: Icons.lock,
               isPassword: true,
             ),
+            AuthenDropdown<String>(
+              label: AppStrings.occupation,
+              hint: AppStrings.occupation,
+              items: ['Học sinh', 'Sinh viên', 'Người đi làm', 'Khác'],
+              value: state.occupation,
+              prefixIcon: Icons.school,
+              onChanged: (val) {
+                context.read<RegisterCubit>().setOccupation(val!);
+                print(state.occupation);
+              },
+            )
           ],
           buttonSubmit: () => context.read<RegisterCubit>().register(),
           errorText: state.isError ? state.errorMessage : "",

@@ -1,104 +1,80 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:study_tracker_mobile/data/config/api_client.dart';
 import 'package:study_tracker_mobile/data/config/api_service.dart';
 import 'package:study_tracker_mobile/domain/repository/auth_repository.dart';
 import 'package:study_tracker_mobile/presentation/resources/api_manager.dart';
+import 'package:study_tracker_mobile/presentation/resources/routes_manager.dart';
 
 class AuthService implements AuthRepository {
-  final _apiService = GetIt.instance.get<ApiService>();
+  final _apiCLient = GetIt.instance.get<ApiClient>().dio;
   final _pref = GetIt.instance.get<SharedPreferences>();
   final _storage = GetIt.instance.get<FlutterSecureStorage>();
 
   @override
-  Future<void> signIn(String email, String password) async {
+  Future<void> signIn(String username, String password) async {
     try {
-      // final response = await _apiService.post(
-      //   ApiManager.login,
-      //   data: {
-      //     'email': email,
-      //     'password': password,
-      //   },
-      // );
-      // if (response.statusCode == 200) {
-      //   await _storage.write(key: "isLogin", value: "true");
-      //   await _storage.write(
-      //       key: "access_token", value: response.data['access_token']);
-      //   await _storage.write(
-      //       key: "refresh_token", value: response.data['refresh_token']);
-      //
-      // } else {
-      //   throw Exception(response.data['message'] ?? "Đăng nhập thất bại");
-      // }
-      await Future.delayed(const Duration(seconds: 2));
-      _checkValidateLogin(email, password);
-      if (email == 'test' && password == '123') {
-        await _pref.setBool('isLogin', true);
-      } else {
-        throw Exception("Đăng nhập thất bại");
-      }
+      final response = await _apiCLient.post(
+        ApiManager.login,
+        data: {
+          'username': username,
+          'password': password,
+        },
+      );
+
+      final result = response.data['result'];
+      final token = result['token'];
+
+      await _pref.setBool('isLogin', true);
+      await _storage.write(key: 'token', value: token);
     } on DioException catch (e) {
-      if (e.response != null) {
-        throw Exception(e.error ?? "Đăng nhập thất bại");
+      if (e.response?.statusCode == 401) {
+        throw ('Invalid email or password');
+      } else if (e.response?.statusCode == 500) {
+        throw ('Server error');
       } else {
-        throw Exception("Không thể kết nối đến máy chủ");
+        throw ('Login failed: ${e.message}');
       }
+    } catch (e) {
+      throw ('Unexpected error: $e');
     }
   }
 
   @override
   Future<void> signOut() async {
     await _pref.setBool('isLogin', false);
-    await _storage.deleteAll();
+    await _storage.delete(key: 'token');
+    Get.offAllNamed(Routes.loginRoute);
   }
 
   @override
-  Future<void> signUp(String fullName, String email, String password) async {
+  Future<void> signUp(Object? data) async {
     try {
-      await Future.delayed(const Duration(seconds: 2));
-      _checkValidateRegister(fullName, email, password);
-      if (email == 'test' && password == '123') {
+      final response = await _apiCLient.post(
+        ApiManager.register,
+        data: data,
+      );
+
+      if (response.statusCode == 200) {
+        Get.offAllNamed(Routes.loginRoute);
       } else {
-        throw "Đăng ký thất bại";
+        throw ('Registration failed');
       }
     } on DioException catch (e) {
-      if (e.response != null) {
-        throw (e.error ?? "Đăng nhập thất bại");
+      if (e.response?.statusCode == 400) {
+        if (e.response?.data['code'] == 1002) {
+          throw ('Tên đăng nhập hoặc email đã tồn tại, vui lòng thử lại với tên khác');
+        }
+        throw ('Thông tin đăng ký không hợp lệ');
       } else {
-        throw ("Không thể kết nối đến máy chủ");
+        throw ('Hệ thống đang bảo trì, vui lòng thử lại sau');
       }
-    }
-  }
-
-  void _checkValidateLogin(String email, String password) {
-    if (email.isEmpty) {
-      throw ("Email không được để trống");
-    }
-    if (password.isEmpty) {
-      throw ("Mật khẩu không được để trống");
-    }
-  }
-
-  void _checkValidateRegister(
-    String fullName,
-    String email,
-    String password,
-  ) {
-    if (fullName.isEmpty) {
-      throw ("Họ tên không được để trống");
-    }
-    if (email.isEmpty) {
-      throw ("Email không được để trống");
-    }
-    if (!email.contains('@')) {
-      throw ("Email không hợp lệ");
-    }
-    if (password.isEmpty) {
-      throw ("Mật khẩu không được để trống");
-    }
-    if (password.length < 8) {
-      throw ("Mật khẩu phải lớn hơn 8 ký tự");
+    } catch (e) {
+      throw ('Unexpected error: $e');
     }
   }
 }
