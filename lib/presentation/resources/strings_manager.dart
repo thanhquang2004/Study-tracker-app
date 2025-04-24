@@ -21,7 +21,7 @@ class AppStrings {
   static const String register = "Đăng ký";
   static const String rememberMe = "Nhớ mật khẩu";
   static const String forgotPassword = "Quên mật khẩu";
-  static const String username = "Tên đầy đủ";
+  static const String username = "Tên đăng nhập";
   static const String email = "Email";
   static const String dob = "Ngày sinh";
   static const String password = "Mật khẩu";

@@ -35,9 +35,11 @@ class RegisterCubit extends Cubit<RegisterState> {
         'password': state.passwordController.text,
         'occupation': state.occupation,
       };
-      await _authService.signUp(
+      await _authService
+          .signUp(
         data,
-      ).timeout(
+      )
+          .timeout(
         const Duration(seconds: 10),
         onTimeout: () {
           Get.back();

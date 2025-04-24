@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:study_tracker_mobile/presentation/layout/auth_layout.dart';
 import 'package:study_tracker_mobile/presentation/login/cubit/login_cubit.dart';
 import 'package:study_tracker_mobile/presentation/login/cubit/login_state.dart';
@@ -75,7 +78,7 @@ class _LoginViewState extends State<LoginView> {
             errorText: state.isError ? state.errorMessage : "",
             prefixNavigateText: AppStrings.haveNotAccount,
             navigateText: AppStrings.register,
-            navigate: () => Navigator.pushNamed(context, Routes.registerRoute),
+            navigate: () => Get.offAllNamed(Routes.registerRoute),
           );
         },
       ),
