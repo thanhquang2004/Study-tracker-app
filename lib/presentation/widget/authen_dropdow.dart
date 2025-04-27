@@ -11,7 +11,7 @@ class AuthenDropdown<T> extends StatelessWidget {
   final void Function(T?) onChanged;
 
   const AuthenDropdown({
-    Key? key,
+    super.key,
     required this.label,
     required this.items,
     this.value,
@@ -19,7 +19,7 @@ class AuthenDropdown<T> extends StatelessWidget {
     this.prefixIcon,
     this.enabled = true,
     required this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

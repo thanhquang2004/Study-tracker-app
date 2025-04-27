@@ -17,7 +17,7 @@ class AuthenTextField extends StatefulWidget {
   final TextEditingController? controller;
 
   const AuthenTextField({
-    Key? key,
+    super.key,
     required this.label,
     this.hint,
     this.enabled = true,
@@ -26,7 +26,7 @@ class AuthenTextField extends StatefulWidget {
     this.size = InputSize.medium,
     this.color = InputColor.defaultColor,
     this.controller,
-  }) : super(key: key);
+  });
 
   @override
   _AuthenTextFieldState createState() => _AuthenTextFieldState();

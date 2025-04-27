@@ -23,7 +23,7 @@ class CustomButton extends StatelessWidget {
   final bool enableSplash; //Bật/tắt hiệu ứng splash
 
   const CustomButton({
-    Key? key,
+    super.key,
     required this.title,
     this.onPressed,
     this.type = ButtonType.elevated,
@@ -38,7 +38,7 @@ class CustomButton extends StatelessWidget {
     this.iconRight = false,
     this.isDisabled = false,
     this.enableSplash = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

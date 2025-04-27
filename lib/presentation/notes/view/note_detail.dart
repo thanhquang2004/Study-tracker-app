@@ -10,7 +10,7 @@ import 'package:study_tracker_mobile/presentation/resources/styles_manager.dart'
 class NoteDetailView extends StatelessWidget {
   final Note note;
 
-  NoteDetailView({required this.note});
+  const NoteDetailView({super.key, required this.note});
 
   @override
   Widget build(BuildContext context) {

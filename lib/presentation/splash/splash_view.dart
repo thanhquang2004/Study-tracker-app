@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/route_manager.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:study_tracker_mobile/data/services/auth_service.dart';
 import 'package:study_tracker_mobile/presentation/resources/assets_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/color_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/routes_manager.dart';
@@ -19,6 +21,7 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   Timer? _timer;
   final storage = GetIt.instance.get<FlutterSecureStorage>();
+  
 
   @override
   void initState() {
@@ -33,21 +36,25 @@ class _SplashViewState extends State<SplashView> {
   }
 
   Future<void> _goNext() async {
-    final pref = GetIt.instance.get<SharedPreferences>();
+    final SharedPreferences pref = await SharedPreferences.getInstance();
 
     final String? isLoginStr = await storage.read(key: "isLogin");
     final bool isLogin = isLoginStr == "true";
-
     final bool isFirstTime = pref.getBool("isFirstTime") ?? true;
 
     if (mounted) {
       if (isFirstTime) {
         pref.setBool("isFirstTime", false);
-        Navigator.pushReplacementNamed(context, Routes.onBoardingRoute);
+        Get.toNamed( Routes.onBoardingRoute);
       } else if (isLogin) {
-        Navigator.pushReplacementNamed(context, Routes.mainRoute);
+        try{
+          await AuthService().refreshToken();        } catch (e) {
+        
+        
+        Get.toNamed( Routes.mainRoute);
+        }
       } else {
-        Navigator.pushReplacementNamed(context, Routes.loginRoute);
+        Get.toNamed( Routes.loginRoute);
       }
     }
   }

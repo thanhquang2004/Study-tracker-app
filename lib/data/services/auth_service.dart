@@ -1,11 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:study_tracker_mobile/data/config/api_client.dart';
-import 'package:study_tracker_mobile/data/config/api_service.dart';
 import 'package:study_tracker_mobile/domain/repository/auth_repository.dart';
 import 'package:study_tracker_mobile/presentation/resources/api_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/routes_manager.dart';
@@ -28,9 +26,13 @@ class AuthService implements AuthRepository {
 
       final result = response.data['result'];
       final token = result['token'];
+      final expiryTime = result['expiryTime'];
+      final userId = result['userId'];
 
       await _pref.setBool('isLogin', true);
       await _storage.write(key: 'token', value: token);
+      await _storage.write(key: 'expiryTime', value: expiryTime);
+      await _storage.write(key: 'userId', value: userId);
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
         throw ('Invalid email or password');
@@ -76,5 +78,42 @@ class AuthService implements AuthRepository {
     } catch (e) {
       throw ('Unexpected error: $e');
     }
+  }
+  
+  @override
+  Future<void> refreshToken() async {
+    final token = await _storage.read(key:'token');
+    if (token == null) {
+      throw ('Token not found');
+    }
+    final expiryTime = await _storage.read(key:'expiryTime');
+    if (DateTime.now().isAfter(DateTime.parse(expiryTime!))) {
+      throw ('Token expired');
+    }
+    return _apiCLient.post(
+      ApiManager.refreshToken,
+      data: {
+        'token': token,
+      },
+    )    .then((response) async {
+      final result = response.data['result'];
+      final newToken = result['token'];
+      final newExpiryTime = result['expiryTime'];
+
+      await _storage.write(key: 'token', value: newToken);
+      await _storage.write(key: 'expiryTime', value: newExpiryTime);
+    })
+    .catchError((error) {
+      if (error is DioException) {
+        if (error.response?.statusCode == 401) {
+          throw ('Token refresh failed');
+        } else {
+          throw ('Unexpected error: ${error.message}');
+        }
+      } else {
+        throw ('Unexpected error: $error');
+      }
+    });
+    
   }
 }

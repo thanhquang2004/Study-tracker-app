@@ -1,9 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:study_tracker_mobile/data/helpers/date_helper.dart';
 import 'package:study_tracker_mobile/data/services/note_service.dart';
 import 'package:study_tracker_mobile/data/services/schedule_service.dart';
-import 'package:study_tracker_mobile/domain/model/note.dart';
-import 'package:study_tracker_mobile/domain/model/schedule.dart';
 import 'package:study_tracker_mobile/presentation/home/cubit/home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {

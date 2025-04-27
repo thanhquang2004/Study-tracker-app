@@ -5,7 +5,6 @@ import 'package:study_tracker_mobile/presentation/resources/styles_manager.dart'
 import 'package:study_tracker_mobile/presentation/setting/cubit/setting_cubit.dart';
 import 'package:study_tracker_mobile/presentation/setting/cubit/setting_state.dart';
 import 'package:study_tracker_mobile/presentation/setting/model/setting_model.dart';
-import 'package:study_tracker_mobile/presentation/widget/loading_dialog.dart';
 
 class SettingView extends StatefulWidget {
   const SettingView({super.key});

@@ -1,21 +1,13 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
-import 'package:study_tracker_mobile/app/app_preferences.dart';
 import 'package:study_tracker_mobile/data/config/api_client.dart';
+import 'package:study_tracker_mobile/data/config/token_interceptors.dart';
 
 
 class ApiService {
-  final ApiClient _apiClient = GetIt.instance<ApiClient>();
-  final AppPreferences _appPreferences = GetIt.instance<AppPreferences>();
-
-  // Hàm lấy header chứa token
-  Future<Map<String, String>> _getHeaders() async {
-    final token = await _appPreferences.getUserToken();
-    return {
-      'Authorization': 'Bearer $token',
-    };
-  }
-
+  final _apiClient = GetIt.instance<ApiClient>().dio
+    ..interceptors.add(TokenInterceptor());
   // GET Method
   Future<Response> get(
     String endpoint, {
@@ -23,11 +15,9 @@ class ApiService {
     CancelToken? cancelToken,
   }) async {
     try {
-      final headers = await _getHeaders();
-      final response = await _apiClient.dio.get(
+      final response = await _apiClient.get(
         endpoint,
         queryParameters: queryParameters,
-        options: Options(headers: headers),
         cancelToken: cancelToken,
       );
       return response;
@@ -44,12 +34,10 @@ class ApiService {
     CancelToken? cancelToken,
   }) async {
     try {
-      final headers = await _getHeaders();
-      final response = await _apiClient.dio.post(
+      final response = await _apiClient.post(
         endpoint,
         data: data,
         queryParameters: queryParameters,
-        options: Options(headers: headers),
         cancelToken: cancelToken,
       );
       return response;
@@ -66,12 +54,10 @@ class ApiService {
     CancelToken? cancelToken,
   }) async {
     try {
-      final headers = await _getHeaders();
-      final response = await _apiClient.dio.put(
+      final response = await _apiClient.put(
         endpoint,
         data: data,
         queryParameters: queryParameters,
-        options: Options(headers: headers),
         cancelToken: cancelToken,
       );
       return response;
@@ -88,12 +74,10 @@ class ApiService {
     CancelToken? cancelToken,
   }) async {
     try {
-      final headers = await _getHeaders();
-      final response = await _apiClient.dio.delete(
+      final response = await _apiClient.delete(
         endpoint,
         data: data,
         queryParameters: queryParameters,
-        options: Options(headers: headers),
         cancelToken: cancelToken,
       );
       return response;
@@ -110,12 +94,10 @@ class ApiService {
     CancelToken? cancelToken,
   }) async {
     try {
-      final headers = await _getHeaders();
-      final response = await _apiClient.dio.patch(
+      final response = await _apiClient.patch(
         endpoint,
         data: data,
         queryParameters: queryParameters,
-        options: Options(headers: headers),
         cancelToken: cancelToken,
       );
       return response;
@@ -135,16 +117,14 @@ class ApiService {
     void Function(int, int)? onSendProgress,
   }) async {
     try {
-      final headers = await _getHeaders();
       FormData formData = FormData.fromMap({
         fileKey: await MultipartFile.fromFile(filePath, filename: fileName),
         if (extraData != null) ...extraData,
       });
 
-      final response = await _apiClient.dio.post(
+      final response = await _apiClient.post(
         endpoint,
         data: formData,
-        options: Options(headers: headers),
         cancelToken: cancelToken,
         onSendProgress: onSendProgress,
       );
@@ -163,12 +143,10 @@ class ApiService {
     void Function(int, int)? onReceiveProgress,
   }) async {
     try {
-      final headers = await _getHeaders();
-      final response = await _apiClient.dio.download(
+      final response = await _apiClient.download(
         endpoint,
         savePath,
         queryParameters: queryParameters,
-        options: Options(headers: headers),
         cancelToken: cancelToken,
         onReceiveProgress: onReceiveProgress,
       );

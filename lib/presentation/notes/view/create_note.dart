@@ -6,6 +6,8 @@ import 'package:study_tracker_mobile/presentation/resources/color_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/styles_manager.dart';
 
 class CreateNoteView extends StatelessWidget {
+  const CreateNoteView({super.key});
+
   @override
   Widget build(BuildContext context) {
     final titleController = TextEditingController();

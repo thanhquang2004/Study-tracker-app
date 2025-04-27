@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
-import 'package:intl/intl.dart';
 import 'package:study_tracker_mobile/presentation/home/cubit/home_cubit.dart';
-import 'package:study_tracker_mobile/presentation/home/cubit/home_state.dart';
 import 'package:study_tracker_mobile/presentation/home/view/widget/date_time_list.dart';
 import 'package:study_tracker_mobile/presentation/home/view/widget/home_app_bar.dart';
 import 'package:study_tracker_mobile/presentation/home/view/widget/home_drawer.dart';
 import 'package:study_tracker_mobile/presentation/home/view/widget/note_list.dart';
 import 'package:study_tracker_mobile/presentation/home/view/widget/schedule_list.dart';
-import 'package:study_tracker_mobile/presentation/home/view/widget/title_row.dart';
 import 'package:study_tracker_mobile/presentation/resources/color_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/routes_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/styles_manager.dart';
@@ -38,7 +34,7 @@ class _HomeView extends StatelessWidget {
       endDrawer: const HomeDrawer(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.toNamed(Routes.chat);
+          Get.toNamed(Routes.generate);
         },
         backgroundColor: XColors.primary,
         shape: const CircleBorder(),

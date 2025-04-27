@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:study_tracker_mobile/app/constant.dart';
 import 'package:study_tracker_mobile/data/utils/convert_color.dart';
 import 'package:study_tracker_mobile/domain/model/note.dart';

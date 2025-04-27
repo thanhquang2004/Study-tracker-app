@@ -163,7 +163,7 @@ class _AuthenticateLayoutState extends State<AuthenticateLayout> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            widget.prefixNavigateText!,
+            widget.prefixNavigateText,
             style: getRegularStyle(color: XColors.neutral_1, fontSize: 12),
           ),
           CustomButton(
