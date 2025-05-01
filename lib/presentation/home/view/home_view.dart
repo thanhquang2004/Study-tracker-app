@@ -58,7 +58,7 @@ class _HomeView extends StatelessWidget {
                   SliverToBoxAdapter(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: const NoteList(),
+                      child:  const NoteList(),
                     ),
                   ),
                   SliverToBoxAdapter(
@@ -75,86 +75,6 @@ class _HomeView extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildHeader(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(AppSize.s16),
-      decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor.withOpacity(0.1),
-      ),
-      child: Row(
-        children: [
-          const CircleAvatar(
-            radius: AppSize.s24,
-            backgroundImage: NetworkImage('https://via.placeholder.com/48'),
-          ),
-          const SizedBox(width: AppSize.s16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'John Doe',
-                style: getBoldStyle(color: Colors.black),
-              ),
-              Text(
-                'john.doe@example.com',
-                style: getRegularStyle(color: Colors.grey),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildMenuItem(
-    BuildContext context, {
-    required IconData icon,
-    required String title,
-    required VoidCallback onTap,
-    bool isDanger = false,
-  }) {
-    return ListTile(
-      leading: Icon(
-        icon,
-        color: isDanger ? XColors.semanticError : null,
-      ),
-      title: Text(
-        title,
-        style: isDanger
-            ? getRegularStyle(color: XColors.semanticError)
-            : getRegularStyle(color: Colors.black),
-      ),
-      onTap: onTap,
-    );
-  }
-
-  void _showLogoutDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Logout', style: getBoldStyle(color: Colors.black)),
-        content: Text(
-          'Are you sure you want to logout?',
-          style: getRegularStyle(color: Colors.black),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text('Cancel', style: getRegularStyle(color: Colors.black)),
-          ),
-          TextButton(
-            onPressed: () {
-              // TODO: Implement logout functionality
-              Navigator.pop(context);
-            },
-            child: Text('Logout',
-                style: getRegularStyle(color: XColors.semanticError)),
-          ),
-        ],
       ),
     );
   }

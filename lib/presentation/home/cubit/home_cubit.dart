@@ -22,13 +22,10 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> fetchNotes() async {
     emit(state.copyWith(isLoading: true));
     try {
-      // Simulate fetching notes from a service
-      await Future.delayed(const Duration(seconds: 2));
-      // Mock data for demonstration purposes
       final notes = await noteService.fetchNotes();
       emit(state.copyWith(notes: notes, isLoading: false));
     } catch (e) {
-      emit(state.copyWith(errorMessage: e.toString(), isLoading: false));
+      emit(state.copyWith(errorMessageNote: e.toString(), isLoading: false));
     }
   }
 
@@ -39,7 +36,7 @@ class HomeCubit extends Cubit<HomeState> {
           await scheduleService.fetchSchedulesByDate(state.selectedDate);
       emit(state.copyWith(schedules: schedules, isLoading: false));
     } catch (e) {
-      emit(state.copyWith(errorMessage: e.toString(), isLoading: false));
+      emit(state.copyWith(errorMessageSchedule: e.toString(), isLoading: false));
     }
   }
 

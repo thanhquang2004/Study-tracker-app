@@ -10,7 +10,6 @@ class NoteDetailCubit extends Cubit<Note?> {
         id: state!.id,
         title: state!.title,
         content: content,
-        color: state!.color,
         createdAt: state!.createdAt,
       ));
     }

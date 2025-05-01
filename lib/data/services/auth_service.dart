@@ -26,12 +26,10 @@ class AuthService implements AuthRepository {
 
       final result = response.data['result'];
       final token = result['token'];
-      final expiryTime = result['expiryTime'];
       final userId = result['userId'];
 
       await _pref.setBool('isLogin', true);
       await _storage.write(key: 'token', value: token);
-      await _storage.write(key: 'expiryTime', value: expiryTime);
       await _storage.write(key: 'userId', value: userId);
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
@@ -49,6 +47,7 @@ class AuthService implements AuthRepository {
   @override
   Future<void> signOut() async {
     await _pref.setBool('isLogin', false);
+    await _storage.delete(key: 'userId');
     await _storage.delete(key: 'token');
     Get.offAllNamed(Routes.loginRoute);
   }

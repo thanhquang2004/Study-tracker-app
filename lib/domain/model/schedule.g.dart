@@ -7,25 +7,25 @@ part of 'schedule.dart';
 // **************************************************************************
 
 Schedule _$ScheduleFromJson(Map<String, dynamic> json) => Schedule(
-      id: json['id'] as String,
-      title: json['title'] as String,
-      description: json['description'] as String,
-      startDate: json['start_date'] as String,
-      endDate: json['end_date'] as String,
-      type: json['type'] as String,
-      status: json['status'] as String,
-      category: json['category'] as String,
-      color: json['color'] as String,
-      allDay: json['all_day'] as bool,
+      id: parseString(json['id']),
+      title: parseString(json['title']),
+      description: parseString(json['description']),
+      startDate: json['start'] as String,
+      endDate: json['end'] as String,
+      type: parseString(json['type']),
+      status: parseString(json['status']),
+      category: parseString(json['category']),
+      color: parseString(json['color']),
+      allDay: parseBool(json['allDay']),
     );
 
 Map<String, dynamic> _$ScheduleToJson(Schedule instance) => <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
       'description': instance.description,
-      'start_date': instance.startDate,
-      'end_date': instance.endDate,
-      'all_day': instance.allDay,
+      'start': instance.startDate,
+      'end': instance.endDate,
+      'allDay': instance.allDay,
       'type': instance.type,
       'status': instance.status,
       'category': instance.category,

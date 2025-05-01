@@ -1,38 +1,40 @@
 class AppStrings {
   static const String noRouteFound = "No Route Found";
   static const String appName = "Study Tracker";
-  static const String onBoardingTitle1 = "Nâng cao kiến thức mỗi ngày";
-  static const String onBoardingTitle2 = "Lên kế hoạch và tối ưu thời gian";
-  static const String onBoardingTitle3 = "Không bỏ lỡ thông tin quan trọng";
-  static const String onBoardingTitle4 = "Gắn kết cộng đồng học tập";
+
+  static const String onBoardingTitle1 = "Enhance your knowledge every day";
+  static const String onBoardingTitle2 = "Plan and optimize your time";
+  static const String onBoardingTitle3 = "Never miss important information";
+  static const String onBoardingTitle4 = "Connect with the learning community";
 
   static const String onBoardingSubTitle1 =
-      "Tận dụng nguồn tài liệu phong phú và các công cụ hỗ trợ thông minh để cải thiện khả năng học tập.  ";
+      "Take advantage of a rich source of materials and smart tools to improve your learning capabilities.";
   static const String onBoardingSubTitle2 =
-      "Sắp xếp công việc khoa học, đặt mục tiêu rõ ràng để học tập và làm việc hiệu quả hơn.";
+      "Organize your tasks scientifically, set clear goals for more effective studying and working.";
   static const String onBoardingSubTitle3 =
-      "Nhận thông báo kịp thời về lịch học, nhiệm vụ và những cập nhật quan trọng giúp bạn luôn chủ động.";
+      "Receive timely notifications about schedules, tasks, and important updates to stay proactive.";
   static const String onBoardingSubTitle4 =
-      "Tương tác, thảo luận và học hỏi từ bạn bè và chuyên gia để phát triển bản thân.";
-  static const String skip = "Bỏ qua";
-  static const String next = "Tiếp theo";
-  static const String start = "Bắt đầu";
-  static const String login = "Đăng nhập";
-  static const String register = "Đăng ký";
-  static const String rememberMe = "Nhớ mật khẩu";
-  static const String forgotPassword = "Quên mật khẩu";
-  static const String username = "Tên đăng nhập";
+      "Interact, discuss, and learn from friends and experts to develop yourself.";
+
+  static const String skip = "Skip";
+  static const String next = "Next";
+  static const String start = "Start";
+  static const String login = "Login";
+  static const String register = "Register";
+  static const String rememberMe = "Remember Me";
+  static const String forgotPassword = "Forgot Password";
+  static const String username = "Username";
   static const String email = "Email";
-  static const String dob = "Ngày sinh";
-  static const String password = "Mật khẩu";
-  static const String confirmPassword = "Xác nhận mật khẩu";
-  static const String occupation = "Nghề nghiệp";
+  static const String dob = "Date of Birth";
+  static const String password = "Password";
+  static const String confirmPassword = "Confirm Password";
+  static const String occupation = "Occupation";
 
-  static const String information = "Thông tin cá nhân";
+  static const String information = "Personal Information";
 
-  static const String logout = "Đăng xuất";
-  static const String confirmLogout = "Bạn có chắc chắn muốn đăng xuất?";
+  static const String logout = "Logout";
+  static const String confirmLogout = "Are you sure you want to logout?";
 
-  static const String haveAccount = "Đã có tài khoản?";
-  static const String haveNotAccount = "Chưa có tài khoản?";
+  static const String haveAccount = "Already have an account?";
+  static const String haveNotAccount = "Don't have an account?";
 }

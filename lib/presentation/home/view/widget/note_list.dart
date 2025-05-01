@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:study_tracker_mobile/presentation/home/cubit/home_cubit.dart';
 import 'package:study_tracker_mobile/presentation/home/cubit/home_state.dart';
-import 'package:study_tracker_mobile/presentation/home/view/widget/note_contain.dart';
+import 'package:study_tracker_mobile/presentation/resources/value_manager.dart';
+import 'package:study_tracker_mobile/presentation/widget/note_contain.dart';
 import 'package:study_tracker_mobile/presentation/home/view/widget/title_row.dart';
 import 'package:study_tracker_mobile/presentation/resources/color_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/styles_manager.dart';
 import 'package:get/get.dart';
 import 'package:study_tracker_mobile/presentation/notes/view/create_note.dart';
+import 'package:study_tracker_mobile/presentation/widget/loader.dart';
 
 class NoteList extends StatelessWidget {
   const NoteList({super.key});
@@ -18,13 +20,13 @@ class NoteList extends StatelessWidget {
       builder: (context, state) {
         if (state.isLoading) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: Loader(),
           );
         }
 
         if (state.errorMessage != null) {
           return Center(
-            child: Text('Error: ${state.errorMessage}'),
+            child: Text('Error: ${state.errorMessageNote}'),
           );
         }
 
@@ -59,8 +61,8 @@ class NoteList extends StatelessWidget {
                           return _buildAddNoteButton(context, index);
                         }
                         return Padding(
-                          padding: EdgeInsets.only(
-                            right: index == 2 ? 0 : 16,
+                          padding: EdgeInsets.all(
+                             index < 3 ? AppSize.s8 : 0,
                           ),
                           child: NoteContain(note: state.notes[index]),
                         );

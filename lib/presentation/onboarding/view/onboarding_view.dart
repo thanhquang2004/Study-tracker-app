@@ -48,7 +48,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                     Align(
                       alignment: Alignment.topRight,
                       child: CustomButton(
-                        title: "Bỏ qua",
+                        title: AppStrings.skip,
                         type: ButtonType.text,
                         onPressed: () {
                           cubit.skipOnboarding(context);

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/instance_manager.dart';
 import 'package:study_tracker_mobile/app/constant.dart';
 import 'package:study_tracker_mobile/presentation/layout/auth_layout.dart';
 import 'package:study_tracker_mobile/presentation/register/cubit/register_cubit.dart';
 import 'package:study_tracker_mobile/presentation/register/cubit/register_state.dart';
+import 'package:study_tracker_mobile/presentation/resources/routes_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/strings_manager.dart';
 import 'package:study_tracker_mobile/presentation/widget/authen_dropdow.dart';
 import 'package:study_tracker_mobile/presentation/widget/authen_field.dart';
@@ -74,7 +78,7 @@ class _RegisterViewState extends State<RegisterView> {
           errorText: state.isError ? state.errorMessage : "",
           prefixNavigateText: AppStrings.haveAccount,
           navigateText: AppStrings.login,
-          navigate: () => Navigator.of(context).pop(),
+          navigate: () => Get.offAndToNamed(Routes.loginRoute),
         );
       }),
     );

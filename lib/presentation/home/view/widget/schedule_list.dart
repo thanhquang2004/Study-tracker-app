@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:study_tracker_mobile/presentation/home/cubit/home_cubit.dart';
 import 'package:study_tracker_mobile/presentation/home/cubit/home_state.dart';
-import 'package:study_tracker_mobile/presentation/home/view/widget/schedule_contain.dart';
+import 'package:study_tracker_mobile/presentation/widget/schedule_contain.dart';
 import 'package:study_tracker_mobile/presentation/home/view/widget/title_row.dart';
 
 class ScheduleList extends StatelessWidget {
@@ -20,7 +20,7 @@ class ScheduleList extends StatelessWidget {
 
         if (state.errorMessage != null) {
           return Center(
-            child: Text('Error: ${state.errorMessage}'),
+            child: Text('Error: ${state.errorMessageSchedule}'),
           );
         }
 
@@ -37,7 +37,7 @@ class ScheduleList extends StatelessWidget {
             state.schedules.isEmpty
                 ? Center(
                     child: Text(
-                      'No schedules available',
+                      state.errorMessageSchedule ?? 'No schedules available',
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             color: Colors.grey,
                           ),

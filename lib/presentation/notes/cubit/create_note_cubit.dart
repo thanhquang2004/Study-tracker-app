@@ -9,7 +9,6 @@ class CreateNoteCubit extends Cubit<Note?> {
       id: DateTime.now().toString(),
       title: title,
       content: content,
-      color: color,
       createdAt: DateTime.now().toIso8601String(),
     );
     emit(newNote);

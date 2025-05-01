@@ -20,4 +20,10 @@ class ApiManager {
   static String userAvatarUploadBase64 = '/user/avatar/upload/base64';
   static String generateQuiz = '$urlRoadmap/generateQuestion';
   static String generateRoadmap = '$urlRoadmap/generateRoadmap';
+  static String getMyNotes(String userId) => '$urlNote/get-note-by/$userId';
+  static String createNote = '$urlNote/create-note';
+  static String updateNote(String noteId) => '$urlNote/$noteId';
+  static String deleteNote(String noteId) => '$urlNote/$noteId';
+  static String getScheduleByDate = '$urlSchedule/my-schedules';
+  
 }

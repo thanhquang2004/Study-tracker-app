@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:study_tracker_mobile/domain/model/note.dart';
-import 'package:study_tracker_mobile/presentation/home/view/widget/note_contain.dart';
+import 'package:study_tracker_mobile/presentation/widget/note_contain.dart';
 import 'package:study_tracker_mobile/presentation/resources/color_manager.dart';
 
 class ListNotes extends StatelessWidget {

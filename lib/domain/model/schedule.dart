@@ -1,21 +1,29 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:study_tracker_mobile/data/helpers/parsing_helper.dart';
 
 part 'schedule.g.dart';
 
 @JsonSerializable()
 class Schedule {
+  @JsonKey(name: 'id', fromJson: parseString)
   final String id;
+  @JsonKey(name: 'title', fromJson: parseString)
   final String title;
+  @JsonKey(name: 'description', fromJson: parseString)
   final String description;
-  @JsonKey(name: 'start_date')
+  @JsonKey(name: 'start') // Changed from 'start_date' to 'start'
   final String startDate;
-  @JsonKey(name: 'end_date')
+  @JsonKey(name: 'end')   // Changed from 'end_date' to 'end'
   final String endDate;
-  @JsonKey(name: 'all_day')
+  @JsonKey(name: 'allDay', fromJson: parseBool)
   final bool allDay;
+  @JsonKey(name: 'type', fromJson: parseString)
   final String type;
+  @JsonKey(name: 'status', fromJson: parseString)
   final String status;
+  @JsonKey(name: 'category', fromJson: parseString)
   final String category;
+  @JsonKey(name: 'color', fromJson: parseString)
   final String color;
 
   Schedule({
@@ -35,7 +43,6 @@ class Schedule {
       _$ScheduleFromJson(json);
   Map<String, dynamic> toJson() => _$ScheduleToJson(this);
 }
-
 // Helper function to generate mock schedule data
 Map<String, dynamic> _generateMockSchedule({
   required String id,
