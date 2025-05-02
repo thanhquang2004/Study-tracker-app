@@ -30,7 +30,7 @@ Future<List<Note>> fetchNotes() async {
   }
 }
 
-  Future<Note> createNote(String title, String content) async {
+  Future<void> createNote(String title, String content) async {
     final userId = await _storage.read(key: 'userId');
 
     try {
@@ -40,9 +40,7 @@ Future<List<Note>> fetchNotes() async {
         'content': content,
         'userId': userId,
       });
-      if (response.statusCode == 200) {
-        return Note.fromJson(response.data['result']);
-      } else {
+      if (response.statusCode != 200) {
         throw ("Failed to create note: ${response.statusCode}");
       }
     } on DioException catch (e) {
@@ -50,14 +48,14 @@ Future<List<Note>> fetchNotes() async {
     }
   }
 
-  Future<Note> updateNote(String id, Note note) async {
+  Future<Note> updateNote(String id, String title, String content) async {
     final userId = await _storage.read(key: 'userId');
 
     try {
       // Simulate updating a note in a database or API
       final response = await _api.put(ApiManager.updateNote(id), data: {
-        'title': note.title,
-        'content': note.content,
+        'title': title,
+        'content': content,
         'userId': userId,
       });
       if (response.statusCode == 200) {

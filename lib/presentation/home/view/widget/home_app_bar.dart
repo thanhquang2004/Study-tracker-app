@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:study_tracker_mobile/presentation/home/cubit/home_cubit.dart';
 import 'package:study_tracker_mobile/presentation/home/cubit/home_state.dart';
+import 'package:study_tracker_mobile/presentation/resources/color_manager.dart';
+import 'package:study_tracker_mobile/presentation/resources/styles_manager.dart';
+import 'package:study_tracker_mobile/presentation/resources/value_manager.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppBar({super.key});
@@ -17,6 +20,10 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
 
         return AppBar(
           elevation: 0,
+          foregroundColor: XColors.neutral_1,
+          iconTheme: IconThemeData(
+            color: XColors.neutral_1,
+          ),
           forceMaterialTransparency: true,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -32,7 +39,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                       return Theme(
                         data: Theme.of(context).copyWith(
                           colorScheme: ColorScheme.light(
-                            primary: Theme.of(context).primaryColor,
+                            primary: XColors.primary,
                             onPrimary: Colors.white,
                             surface: Colors.white,
                             onSurface: Colors.black,
@@ -53,9 +60,9 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(Icons.calendar_today, size: 16),
+                      const Icon(Icons.calendar_today, size: 24, color: XColors.neutral_5), 
                       const SizedBox(width: 8),
-                      Text(formattedDate),
+                      Text(formattedDate, style: getBoldStyle(color: XColors.neutral_1, fontSize: AppSize.s20,),),
                     ],
                   ),
                 ),

@@ -1,4 +1,5 @@
 
+import 'package:flutter/widgets.dart';
 import 'package:study_tracker_mobile/domain/model/quiz.dart';
 import 'package:study_tracker_mobile/domain/model/roadmap.dart';
 import 'package:study_tracker_mobile/presentation/generate/cubit/chat_message.dart';
@@ -14,6 +15,7 @@ class GenerateModel {
   final RoadmapResponse? roadmap;
   final String? error;
   final List<ChatMessage> messages;
+  final ScrollController scrollController;
 
   GenerateModel({
     required this.pageIndex,
@@ -24,6 +26,7 @@ class GenerateModel {
     this.roadmap,
     this.error,
     required this.messages,
+    required this.scrollController,
   });
 
   factory GenerateModel.initial() {
@@ -36,6 +39,7 @@ class GenerateModel {
       quiz: firstQuestionModel,
       roadmap: null,
       messages: [ChatMessage(text: firstQuestionModel.nextQuestion, isUser: false)],
+      scrollController: ScrollController(),
     );
   }
 
@@ -48,6 +52,7 @@ class GenerateModel {
     RoadmapResponse? roadmap,
     String? error,
     List<ChatMessage>? messages,
+    ScrollController? scrollController,
   }) {
     return GenerateModel(
       pageIndex: pageIndex ?? this.pageIndex,
@@ -58,6 +63,7 @@ class GenerateModel {
       roadmap: roadmap ?? this.roadmap,
       error: error,
       messages: messages ?? this.messages,
+      scrollController: scrollController ?? this.scrollController, // Keep the same scroll controller
     );
   }
 }

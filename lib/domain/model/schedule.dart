@@ -25,6 +25,10 @@ class Schedule {
   final String category;
   @JsonKey(name: 'color', fromJson: parseString)
   final String color;
+  @JsonKey(name: 'userId', fromJson: parseString)
+  final String userId;
+  @JsonKey(name: 'roadmapId', fromJson: parseString)
+  final String roadmapId;
 
   Schedule({
     required this.id,
@@ -37,6 +41,8 @@ class Schedule {
     required this.category,
     required this.color,
     required this.allDay,
+    required this.userId,
+    required this.roadmapId,
   });
 
   factory Schedule.fromJson(Map<String, dynamic> json) =>
@@ -51,6 +57,7 @@ Map<String, dynamic> _generateMockSchedule({
   required String category,
   required String color,
   bool isAllDay = false,
+  
 }) {
   final endDate = startDate.add(const Duration(hours: 1));
   return {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:study_tracker_mobile/app/constant.dart';
 import 'package:study_tracker_mobile/data/services/roadmap_service.dart';
 import 'package:study_tracker_mobile/presentation/generate/cubit/generate_cubit.dart';
 import 'package:study_tracker_mobile/presentation/generate/cubit/generate_model.dart';
@@ -53,6 +54,7 @@ class _GenerateViewState extends State<GenerateView> {
                     // Messages List
                     Expanded(
                       child: ListView.builder(
+                        controller: state.scrollController,
                         padding: const EdgeInsets.all(16),
                         itemCount: state.messages.length,
                         itemBuilder: (context, index) {
@@ -85,28 +87,49 @@ class _GenerateViewState extends State<GenerateView> {
                       ),
                     ),
                     // Suggested Answers (ChoiceChips)
-                    if (state.quiz.suggestAnswer.isNotEmpty)
+                    if (state.isLoading == false &&
+                        state.quiz.suggestAnswer.isNotEmpty)
                       Container(
-                        constraints: const BoxConstraints(maxHeight: 200),
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: ListView.builder(
                           shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
                           itemCount: state.quiz.suggestAnswer.length,
                           itemBuilder: (context, index) {
                             final opt = state.quiz.suggestAnswer[index];
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 4),
-                              child: ChoiceChip(
-                                label: Text(opt.content),
-                                selected: false,
-                                onSelected: (_) {
-                                  context
-                                      .read<GenerateCubit>()
-                                      .submitAnswer(opt.content);
-                                },
-                                backgroundColor: Colors.grey[200],
-                                selectedColor: XColors.primary.withOpacity(0.2),
-                                labelStyle: TextStyle(color: Colors.black87),
+                            return Align(
+                              alignment: Alignment.centerRight,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 4),
+                                child: ChoiceChip(
+                                  label: Container(
+                                    // Bỏ width cố định hoặc đặt double.infinity
+                                    constraints: BoxConstraints(
+                                      maxWidth: 0.65 *
+                                          Constants
+                                              .deviceWidth, // Giới hạn tối đa hợp lý
+                                    ),
+                                    child: Text(
+                                      opt.content,
+                                      maxLines: 3,
+                                      overflow: TextOverflow
+                                          .ellipsis, // Xử lý khi text vượt quá 3 dòng
+                                      softWrap:
+                                          true, // Cho phép tự động xuống dòng
+                                    ),
+                                  ),
+                                  selected: false,
+                                  onSelected: (_) {
+                                    context
+                                        .read<GenerateCubit>()
+                                        .submitAnswer(opt.content);
+                                  },
+                                  backgroundColor: Colors.grey[200],
+                                  selectedColor:
+                                      XColors.primary.withOpacity(0.2),
+                                  labelStyle: TextStyle(color: Colors.black87),
+                                ),
                               ),
                             );
                           },

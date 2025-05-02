@@ -19,6 +19,11 @@ class HomeCubit extends Cubit<HomeState> {
     emit(state.copyWith(selectedDate: now));
   }
 
+  void refreshData() {
+  fetchNotes();
+  fetchSchedules();
+}
+
   Future<void> fetchNotes() async {
     emit(state.copyWith(isLoading: true));
     try {

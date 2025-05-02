@@ -17,6 +17,8 @@ Schedule _$ScheduleFromJson(Map<String, dynamic> json) => Schedule(
       category: parseString(json['category']),
       color: parseString(json['color']),
       allDay: parseBool(json['allDay']),
+      userId: parseString(json['userId']),
+      roadmapId: parseString(json['roadmapId']),
     );
 
 Map<String, dynamic> _$ScheduleToJson(Schedule instance) => <String, dynamic>{
@@ -30,4 +32,6 @@ Map<String, dynamic> _$ScheduleToJson(Schedule instance) => <String, dynamic>{
       'status': instance.status,
       'category': instance.category,
       'color': instance.color,
+      'userId': instance.userId,
+      'roadmapId': instance.roadmapId,
     };

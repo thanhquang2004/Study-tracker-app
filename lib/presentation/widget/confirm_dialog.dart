@@ -17,7 +17,7 @@ class ConfirmAlert extends StatelessWidget {
     required this.content,
     required this.onConfirm,
     required this.title,
-    required this.emergency,
+    this.emergency = false,
   });
 
   @override
@@ -51,7 +51,7 @@ class ConfirmAlert extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).pop(); // Dismiss the dialog
                 },
-                child: Text('Hủy',
+                child: Text('Cancel',
                     style: getSemiBoldStyle(color: XColors.neutral_1)),
               ),
             ),

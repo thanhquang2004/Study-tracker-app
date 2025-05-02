@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:study_tracker_mobile/app/constant.dart';
 import 'package:study_tracker_mobile/domain/model/note.dart';
-import 'package:study_tracker_mobile/presentation/notes/view/note_detail.dart';
+import 'package:study_tracker_mobile/presentation/notes/view/note_view.dart';
 import 'package:study_tracker_mobile/presentation/resources/color_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/styles_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/value_manager.dart';
@@ -22,7 +22,7 @@ class NoteContain extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Get.to(() => NoteDetailView(note: note));
+        Get.to(() => NoteView(note: note));
       },
       child: Container(
         width: 0.42 * Constants.deviceWidth,

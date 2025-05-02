@@ -13,8 +13,8 @@ class ApiClient {
     };
 
     dio.options = BaseOptions(
-      // connectTimeout: Duration(seconds: 30),
-      // receiveTimeout: Duration(seconds: 30),
+      connectTimeout: Duration(minutes: 2),
+      receiveTimeout: Duration(minutes: 2),
       headers: headers,
     );
 

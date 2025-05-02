@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:study_tracker_mobile/presentation/resources/color_manager.dart';
+import 'package:study_tracker_mobile/presentation/resources/styles_manager.dart';
 
 class TitleRow extends StatelessWidget {
   final String title;
@@ -29,7 +31,7 @@ class TitleRow extends StatelessWidget {
           if (hasMore)
             TextButton(
               onPressed: onTap,
-              child: const Text('View All'),
+              child:  Text('View All', style: getRegularStyle(color: XColors.neutral_5 ),),
             ),
         ],
       ),

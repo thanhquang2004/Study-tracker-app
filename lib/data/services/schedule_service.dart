@@ -4,8 +4,10 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:study_tracker_mobile/data/config/api_service.dart';
 import 'package:study_tracker_mobile/data/helpers/date_helper.dart';
+import 'package:study_tracker_mobile/domain/model/roadmap.dart';
 import 'package:study_tracker_mobile/domain/model/schedule.dart';
 import 'package:study_tracker_mobile/presentation/resources/api_manager.dart';
+import 'package:study_tracker_mobile/presentation/resources/color_manager.dart';
 
 class ScheduleService {
   final _api = GetIt.instance.get<ApiService>();
@@ -32,29 +34,20 @@ class ScheduleService {
     }
     
   }
+  Future<void> addAllSchedules(List<Schedule> schedules) async {
+    try {
+      final response = await _api.post(
+        ApiManager.addAllSchedule,
+        data: schedules.map((schedule) => schedule.toJson()).toList(),
+      );
+      if (response.statusCode != 200) {
+        throw Exception('Failed to add schedules: ${response.statusCode}');
+      }
+    } on DioException catch (e) {
+      print('Error adding schedules: ${e.message}');
+      throw Exception('Failed to add schedules: $e');
+    }
 
-  Future<List<Schedule>> fetchSchedulesByDateRange(
-    DateTime startDate, 
-    DateTime endDate,
-  ) async {
-    final schedules = _getMockSchedules();
-    return schedules.where((schedule) {
-      final scheduleStartDate =
-          formatStringToDateTime(schedule.startDate.toString());
-      final scheduleEndDate =
-          formatStringToDateTime(schedule.endDate.toString());
-      return scheduleStartDate
-              .isAfter(startDate.subtract(const Duration(days: 1))) &&
-          scheduleEndDate.isBefore(endDate.add(const Duration(days: 1)));
-    }).toList();
-  }
 
-  Future<List<Schedule>> fetchAllSchedules() async {
-    return _getMockSchedules();
-  }
-
-  // Helper function to get mock data
-  List<Schedule> _getMockSchedules() {
-    return mockScheduleData.map((data) => Schedule.fromJson(data)).toList();
   }
 }

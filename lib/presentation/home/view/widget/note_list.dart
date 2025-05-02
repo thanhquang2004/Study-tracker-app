@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:study_tracker_mobile/presentation/home/cubit/home_cubit.dart';
 import 'package:study_tracker_mobile/presentation/home/cubit/home_state.dart';
+import 'package:study_tracker_mobile/presentation/home/view/note_view_all.dart';
+import 'package:study_tracker_mobile/presentation/notes/view/note_view.dart';
 import 'package:study_tracker_mobile/presentation/resources/value_manager.dart';
 import 'package:study_tracker_mobile/presentation/widget/note_contain.dart';
 import 'package:study_tracker_mobile/presentation/home/view/widget/title_row.dart';
 import 'package:study_tracker_mobile/presentation/resources/color_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/styles_manager.dart';
 import 'package:get/get.dart';
-import 'package:study_tracker_mobile/presentation/notes/view/create_note.dart';
 import 'package:study_tracker_mobile/presentation/widget/loader.dart';
 
 class NoteList extends StatelessWidget {
@@ -36,7 +37,11 @@ class NoteList extends StatelessWidget {
           children: [
             TitleRow(
               title: 'Note',
-              onTap: () => context.read<HomeCubit>().viewMoreNotes(),
+              onTap: () => Get.to(
+                () => NoteViewAll(
+                  notes: state.notes,
+                ),
+              ),
             ),
             const SizedBox(height: 8),
             SizedBox(
@@ -62,7 +67,7 @@ class NoteList extends StatelessWidget {
                         }
                         return Padding(
                           padding: EdgeInsets.all(
-                             index < 3 ? AppSize.s8 : 0,
+                            index < 3 ? AppSize.s8 : 0,
                           ),
                           child: NoteContain(note: state.notes[index]),
                         );
@@ -83,7 +88,7 @@ class NoteList extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: () {
-          Get.to(() => CreateNoteView());
+          Get.to(() => NoteView());
         },
         child: Container(
           width: 160,

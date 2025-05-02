@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:study_tracker_mobile/data/config/api_client.dart';
 import 'package:study_tracker_mobile/data/config/token_interceptors.dart';

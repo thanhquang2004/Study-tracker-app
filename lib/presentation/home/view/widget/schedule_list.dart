@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:study_tracker_mobile/presentation/home/cubit/home_cubit.dart';
 import 'package:study_tracker_mobile/presentation/home/cubit/home_state.dart';
+import 'package:study_tracker_mobile/presentation/widget/loader.dart';
 import 'package:study_tracker_mobile/presentation/widget/schedule_contain.dart';
 import 'package:study_tracker_mobile/presentation/home/view/widget/title_row.dart';
 
@@ -14,7 +15,7 @@ class ScheduleList extends StatelessWidget {
       builder: (context, state) {
         if (state.isLoading) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: Loader(),
           );
         }
 

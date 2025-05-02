@@ -20,6 +20,7 @@ class ScheduleContain extends StatelessWidget {
 
     return Container(
       width: 180,
+      height: 100,
       margin: const EdgeInsets.only(right: AppSize.s12),
       padding: const EdgeInsets.all(AppSize.s12),
       decoration: BoxDecoration(
@@ -33,36 +34,40 @@ class ScheduleContain extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        spacing: AppSize.s12,
         children: [
-          Text(
-            schedule.title,
-            style: getBoldStyle(
-              fontSize: AppSize.s14,
-            ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
+          Icon(
+            Icons.calendar_today,
+            color: XColors.primary,
+            size: AppSize.s48,
           ),
-           SizedBox(height: AppSize.s6),
-          Text(
-            schedule.description,
-            style: getRegularStyle(
-              color: XColors.neutral_1,
-              fontSize: AppSize.s12,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  schedule.title,
+                  style: getBoldStyle(
+                    fontSize: AppSize.s16,
+                    color: XColors.neutral_1,
+                  ),
+                ),
+                const SizedBox(height: AppSize.s4),
+                Text(
+                  schedule.description,
+                  
+                  style: getRegularStyle(
+                    fontSize: AppSize.s14,
+                    color: XColors.neutral_6,
+                  ),
+                ),
+              ],
             ),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
           ),
-           SizedBox(height: AppSize.s6),
-          Text(
-            _formatTimeRange(schedule),
-            style: getRegularStyle(
-              color: XColors.neutral_1,
-              fontSize: AppSize.s12,
-            
-            ),
-          ),
+          
         ],
       ),
     );

@@ -25,5 +25,7 @@ class ApiManager {
   static String updateNote(String noteId) => '$urlNote/$noteId';
   static String deleteNote(String noteId) => '$urlNote/$noteId';
   static String getScheduleByDate = '$urlSchedule/my-schedules';
+  static String createSchedule = '$urlSchedule/create-schedule';
+  static String addAllSchedule = '$urlSchedule/schedules/add-all';
   
 }

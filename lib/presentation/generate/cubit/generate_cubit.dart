@@ -45,7 +45,12 @@ class GenerateCubit extends Cubit<GenerateModel> {
   try {
     if (state.pageIndex == 4) {
       // Generate roadmap after answering the last question
-      final roadmap = await _api.generateRoadmap(newInfo);
+      final roadmap = await _api.generateRoadmap(newInfo).timeout(const Duration(minutes: 3)).then(
+        (value) => value,
+        onError: (error, stackTrace) {
+          throw Exception('Error generating roadmap: $error');
+        },
+      );
       updatedMessages.add(ChatMessage(text: 'Here is your roadmap!', isUser: false));
       emit(state.copyWith(
         isLoading: false,
@@ -66,7 +71,9 @@ class GenerateCubit extends Cubit<GenerateModel> {
         messages: updatedMessages,
       ));
     }
+    state.scrollController.jumpTo(state.scrollController.position.maxScrollExtent);
   } catch (e) {
+    updatedMessages.add(ChatMessage(text: 'Server has error, Please try again', isUser: false));
     emit(state.copyWith(isLoading: false, error: e.toString()));
   }
 }
