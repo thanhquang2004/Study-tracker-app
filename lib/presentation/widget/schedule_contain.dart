@@ -42,7 +42,7 @@ class ScheduleContain extends StatelessWidget {
           Icon(
             Icons.calendar_today,
             color: XColors.primary,
-            size: AppSize.s48,
+            size: AppSize.s32,
           ),
           Expanded(
             child: Column(

@@ -21,7 +21,6 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   Timer? _timer;
   final storage = GetIt.instance.get<FlutterSecureStorage>();
-  
 
   @override
   void initState() {
@@ -38,23 +37,21 @@ class _SplashViewState extends State<SplashView> {
   Future<void> _goNext() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
 
-    final String? isLoginStr = await storage.read(key: "isLogin");
-    final bool isLogin = isLoginStr == "true";
+    final bool? isLogin = pref.getBool("isLogin");
     final bool isFirstTime = pref.getBool("isFirstTime") ?? true;
 
     if (mounted) {
       if (isFirstTime) {
         pref.setBool("isFirstTime", false);
-        Get.toNamed( Routes.onBoardingRoute);
-      } else if (isLogin) {
-        try{
-          await AuthService().refreshToken();        } catch (e) {
-        
-        
-        Get.toNamed( Routes.mainRoute);
+        Get.offAllNamed(Routes.onBoardingRoute);
+      } else if (isLogin ?? false) {
+        try {
+          await AuthService().refreshToken();
+        } catch (e) {
+          Get.offAllNamed(Routes.mainRoute);
         }
       } else {
-        Get.toNamed( Routes.loginRoute);
+        Get.offAllNamed(Routes.loginRoute);
       }
     }
   }
