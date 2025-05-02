@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:study_tracker_mobile/presentation/resources/styles_manager.dart';
+import 'package:study_tracker_mobile/presentation/resources/value_manager.dart';
 
 class DateTimeContain extends StatelessWidget {
   final String day;
@@ -15,8 +17,9 @@ class DateTimeContain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: AppSize.s100,
       margin: const EdgeInsets.symmetric(horizontal: 4),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
         color: isActive ? Theme.of(context).primaryColor : Colors.transparent,
         borderRadius: BorderRadius.circular(8),
@@ -26,19 +29,22 @@ class DateTimeContain extends StatelessWidget {
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             day,
-            style: TextStyle(
+            style: getBoldStyle(
               color: isActive ? Colors.white : Colors.grey.shade600,
-              fontWeight: FontWeight.bold,
+              fontSize: 12,
             ),
           ),
           const SizedBox(height: 4),
           Text(
             date,
-            style: TextStyle(
+            style: getRegularStyle(
               color: isActive ? Colors.white : Colors.grey.shade600,
+              fontSize: 12,
             ),
           ),
         ],

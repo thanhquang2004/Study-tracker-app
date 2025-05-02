@@ -12,6 +12,7 @@ import 'package:study_tracker_mobile/presentation/resources/color_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/styles_manager.dart';
 import 'package:get/get.dart';
 import 'package:study_tracker_mobile/presentation/widget/loader.dart';
+import 'package:study_tracker_mobile/presentation/widget/shimmer_loading.dart';
 
 class NoteList extends StatelessWidget {
   const NoteList({super.key});
@@ -21,8 +22,12 @@ class NoteList extends StatelessWidget {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         if (state.isLoading) {
-          return const Center(
-            child: Loader(),
+          return ShimmerLoading(
+            direction: Axis.horizontal,
+            itemWidth: 0.42 * Constants.deviceWidth,
+            itemHeight: 200,
+            titleHeight: 40,
+            itemCount: 2,
           );
         }
 
@@ -92,8 +97,9 @@ class NoteList extends StatelessWidget {
           Get.to(() => NoteView());
         },
         child: Container(
-        width: 0.42 * Constants.deviceWidth,
-        padding: const EdgeInsets.all(AppPadding.p16),          margin: const EdgeInsets.only(left: 16),
+          width: 0.42 * Constants.deviceWidth,
+          padding: const EdgeInsets.all(AppPadding.p16),
+          margin: const EdgeInsets.only(left: 16),
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(12),

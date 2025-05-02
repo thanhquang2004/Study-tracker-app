@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:study_tracker_mobile/app/constant.dart';
 import 'package:study_tracker_mobile/presentation/home/cubit/home_cubit.dart';
 import 'package:study_tracker_mobile/presentation/home/cubit/home_state.dart';
-import 'package:study_tracker_mobile/presentation/widget/loader.dart';
+import 'package:study_tracker_mobile/presentation/resources/assets_manager.dart';
+import 'package:study_tracker_mobile/presentation/resources/color_manager.dart';
+import 'package:study_tracker_mobile/presentation/resources/styles_manager.dart';
+import 'package:study_tracker_mobile/presentation/resources/value_manager.dart';
 import 'package:study_tracker_mobile/presentation/widget/schedule_contain.dart';
 import 'package:study_tracker_mobile/presentation/home/view/widget/title_row.dart';
+import 'package:study_tracker_mobile/presentation/widget/shimmer_loading.dart';
 
 class ScheduleList extends StatelessWidget {
   const ScheduleList({super.key});
@@ -14,8 +21,18 @@ class ScheduleList extends StatelessWidget {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         if (state.isLoading) {
-          return const Center(
-            child: Loader(),
+          return Expanded(
+            child: Column(
+              children: [
+
+                ShimmerLoading(
+                  itemWidth: 180,
+                  itemHeight: 100,
+                  titleHeight: 40,
+                  itemCount: 4,
+                ),
+              ],
+            ),
           );
         }
 
@@ -37,13 +54,21 @@ class ScheduleList extends StatelessWidget {
             const SizedBox(height: 8),
             state.schedules.isEmpty
                 ? Center(
-                    child: Text(
-                      state.errorMessageSchedule ?? 'No schedules available',
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            color: Colors.grey,
-                          ),
-                    ),
-                  )
+                    child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(ImageAssets.empty),
+                      const SizedBox(height: 8),
+                      Text(
+                        'Nothing scheduled today.',
+                        style: getBoldStyle(
+                          fontSize: 16,
+                          color: XColors.neutral_1,
+                        ),
+                      ),
+                    ],
+                  ))
                 : ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),

@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:study_tracker_mobile/presentation/home/cubit/home_cubit.dart';
 import 'package:study_tracker_mobile/presentation/home/cubit/home_state.dart';
 import 'package:study_tracker_mobile/presentation/home/view/widget/date_time_contain.dart';
+import 'package:study_tracker_mobile/presentation/resources/color_manager.dart';
 
 class DateTimeList extends StatelessWidget {
   const DateTimeList({super.key});
@@ -19,7 +20,7 @@ class DateTimeList extends StatelessWidget {
           height: 100,
           padding: const EdgeInsets.symmetric(vertical: 8),
           decoration: BoxDecoration(
-            color: Theme.of(context).scaffoldBackgroundColor,
+            color: XColors.neutral_9,
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.05),
@@ -28,11 +29,9 @@ class DateTimeList extends StatelessWidget {
               ),
             ],
           ),
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            itemCount: 7,
-            itemBuilder: (context, index) {
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: List.generate(7, (index) {
               final date = monday.add(Duration(days: index));
               final day = DateFormat('E').format(date);
               final dateString = DateFormat('d MMM').format(date);
@@ -44,7 +43,7 @@ class DateTimeList extends StatelessWidget {
                   isActive: date.isAtSameMomentAs(state.selectedDate),
                 ),
               );
-            },
+            }),
           ),
         );
       },

@@ -27,7 +27,7 @@ class _GenerateViewState extends State<GenerateView> {
         appBar: AppBar(
           title: Text(
             'Generate Roadmap',
-            style: getBoldStyle(color: XColors.primary, fontSize: 20),
+            
           ),
           elevation: 0,
           forceMaterialTransparency: false,
