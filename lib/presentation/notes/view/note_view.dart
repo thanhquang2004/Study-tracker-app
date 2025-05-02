@@ -162,9 +162,10 @@ class _NoteContentState extends State<NoteContent> {
             controller: _contentController,
             minLines: 6,
             maxLines: 10,
+            cursorColor: XColors.neutral_1,
             decoration: const InputDecoration(
-              labelText: 'Content',
               labelStyle: TextStyle(color: XColors.neutral_3),
+              
               focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: XColors.primary),
               ),
