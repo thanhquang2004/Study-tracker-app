@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:study_tracker_mobile/app/constant.dart';
 import 'package:study_tracker_mobile/presentation/home/cubit/home_cubit.dart';
 import 'package:study_tracker_mobile/presentation/home/cubit/home_state.dart';
 import 'package:study_tracker_mobile/presentation/home/view/note_view_all.dart';
@@ -83,16 +84,16 @@ class NoteList extends StatelessWidget {
 
   Widget _buildAddNoteButton(BuildContext context, int index) {
     return Padding(
-      padding: EdgeInsets.only(
-        right: index == 3 ? 0 : 16,
+      padding: EdgeInsets.all(
+        8,
       ),
       child: GestureDetector(
         onTap: () {
           Get.to(() => NoteView());
         },
         child: Container(
-          width: 160,
-          margin: const EdgeInsets.only(left: 16),
+        width: 0.42 * Constants.deviceWidth,
+        padding: const EdgeInsets.all(AppPadding.p16),          margin: const EdgeInsets.only(left: 16),
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(12),
