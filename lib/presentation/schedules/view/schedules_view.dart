@@ -169,7 +169,7 @@ class ScheduleContent extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-            _buildDetailItem('Start', dateFormat.format(state.startDatt !)),
+            _buildDetailItem('Start', dateFormat.format(state.startDate!)),
             _buildDetailItem('End', dateFormat.format(state.endDate!)),
             _buildDetailItem('All Day', state.allDay ? 'Yes' : 'No'),
             _buildDetailItem('Category', StringExtension(state.category).capitalizeFirst!),
