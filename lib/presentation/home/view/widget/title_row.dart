@@ -1,18 +1,22 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
 import 'package:study_tracker_mobile/presentation/resources/color_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/styles_manager.dart';
 
 class TitleRow extends StatelessWidget {
   final String title;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final bool hasMore;
+  final Widget? orther;
 
   const TitleRow({
-    super.key,
+    Key? key,
     required this.title,
-    required this.onTap,
+    this.onTap,
     this.hasMore = true,
-  });
+    this.orther,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +35,12 @@ class TitleRow extends StatelessWidget {
           if (hasMore)
             TextButton(
               onPressed: onTap,
-              child:  Text('View All', style: getRegularStyle(color: XColors.neutral_5 ),),
+              child: Text(
+                'View All',
+                style: getRegularStyle(color: XColors.neutral_5),
+              ),
             ),
+          if (orther != null) orther!,
         ],
       ),
     );

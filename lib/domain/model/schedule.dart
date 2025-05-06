@@ -6,7 +6,7 @@ part 'schedule.g.dart';
 @JsonSerializable()
 class Schedule {
   @JsonKey(name: 'id', fromJson: parseString)
-  final String id;
+  final String? id;
   @JsonKey(name: 'title', fromJson: parseString)
   final String title;
   @JsonKey(name: 'description', fromJson: parseString)
@@ -31,7 +31,7 @@ class Schedule {
   final String roadmapId;
 
   Schedule({
-    required this.id,
+    this.id,
     required this.title,
     required this.description,
     required this.startDate,

@@ -27,7 +27,6 @@ class _GenerateViewState extends State<GenerateView> {
         appBar: AppBar(
           title: Text(
             'Generate Roadmap',
-            
           ),
           elevation: 0,
           forceMaterialTransparency: false,
@@ -93,7 +92,7 @@ class _GenerateViewState extends State<GenerateView> {
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: ListView.builder(
                           shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           itemCount: state.quiz.suggestAnswer.length,
                           itemBuilder: (context, index) {
                             final opt = state.quiz.suggestAnswer[index];
