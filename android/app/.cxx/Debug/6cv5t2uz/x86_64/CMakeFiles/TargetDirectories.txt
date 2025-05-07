@@ -1,0 +1,2 @@
+/Users/minh/Documents/flutter_project/Study-tracker-app/android/app/.cxx/Debug/6cv5t2uz/x86_64/CMakeFiles/edit_cache.dir
+/Users/minh/Documents/flutter_project/Study-tracker-app/android/app/.cxx/Debug/6cv5t2uz/x86_64/CMakeFiles/rebuild_cache.dir

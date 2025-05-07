@@ -11,7 +11,6 @@ import 'package:study_tracker_mobile/presentation/home/view/widget/title_row.dar
 import 'package:study_tracker_mobile/presentation/resources/color_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/styles_manager.dart';
 import 'package:get/get.dart';
-import 'package:study_tracker_mobile/presentation/widget/loader.dart';
 import 'package:study_tracker_mobile/presentation/widget/shimmer_loading.dart';
 
 class NoteList extends StatelessWidget {

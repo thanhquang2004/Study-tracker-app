@@ -32,7 +32,7 @@ class AuthService implements AuthRepository {
       await _storage.write(key: 'token', value: token);
       await _storage.write(key: 'userId', value: userId);
     } on DioException catch (e) {
-      if (e.response?.statusCode == 401) {
+      if (e.response?.statusCode == 401 || e.response?.statusCode == 404) {
         throw ('Invalid email or password');
       } else if (e.response?.statusCode == 500) {
         throw ('Server error');
