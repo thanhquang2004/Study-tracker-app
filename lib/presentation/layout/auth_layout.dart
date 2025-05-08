@@ -7,7 +7,6 @@ import 'package:study_tracker_mobile/presentation/resources/font_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/strings_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/styles_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/value_manager.dart';
-import 'package:study_tracker_mobile/presentation/widget/authen_field.dart';
 import 'package:study_tracker_mobile/presentation/widget/custom_button.dart';
 
 class AuthenticateLayout extends StatefulWidget {

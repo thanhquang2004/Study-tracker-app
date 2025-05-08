@@ -14,7 +14,7 @@ import 'package:study_tracker_mobile/presentation/widget/custom_button.dart';
 class RoadmapView extends StatelessWidget {
   final RoadmapResponse roadmap;
 
-  const RoadmapView({Key? key, required this.roadmap}) : super(key: key);
+  const RoadmapView({super.key, required this.roadmap});
 
   @override
   Widget build(BuildContext context) {
@@ -52,10 +52,10 @@ class RoadmapView extends StatelessWidget {
   }
 
   Future<void> _createSchedule() async {
-    final ScheduleService _scheduleService = ScheduleService();
+    final ScheduleService scheduleService = ScheduleService();
     // Mapping the roadmap stages to schedule items
     final scheduleItems = parseRoadmapToSchedules(roadmap);
-    _scheduleService
+    scheduleService
         .addAllSchedules(scheduleItems)
         .timeout(const Duration(seconds: 30))
         .then(

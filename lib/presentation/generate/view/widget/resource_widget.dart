@@ -5,7 +5,7 @@ import 'package:study_tracker_mobile/domain/model/roadmap.dart';
 class ResourceWidget extends StatelessWidget {
   final Resource resource;
 
-  const ResourceWidget({Key? key, required this.resource}) : super(key: key);
+  const ResourceWidget({super.key, required this.resource});
 
   @override
   Widget build(BuildContext context) {

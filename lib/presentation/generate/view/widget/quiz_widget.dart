@@ -5,7 +5,7 @@ import 'package:study_tracker_mobile/domain/model/roadmap.dart';
 class QuizWidget extends StatelessWidget {
   final Quiz quiz;
 
-  const QuizWidget({Key? key, required this.quiz}) : super(key: key);
+  const QuizWidget({super.key, required this.quiz});
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:study_tracker_mobile/domain/model/note.dart';
 import 'package:study_tracker_mobile/presentation/notes/cubit/note_cubit.dart';
 import 'package:study_tracker_mobile/presentation/notes/cubit/note_state.dart';

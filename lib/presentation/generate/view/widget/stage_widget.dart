@@ -7,7 +7,7 @@ import 'package:study_tracker_mobile/presentation/resources/color_manager.dart';
 class StageWidget extends StatelessWidget {
   final Stage stage;
 
-  const StageWidget({Key? key, required this.stage}) : super(key: key);
+  const StageWidget({super.key, required this.stage});
 
   @override
   Widget build(BuildContext context) {

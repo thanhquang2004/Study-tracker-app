@@ -7,7 +7,7 @@ import 'package:study_tracker_mobile/presentation/generate/view/widget/resource_
 class SubtaskWidget extends StatelessWidget {
   final Subtask subtask;
 
-  const SubtaskWidget({Key? key, required this.subtask}) : super(key: key);
+  const SubtaskWidget({super.key, required this.subtask});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class SubtaskWidget extends StatelessWidget {
                   ),
                   ...subtask.resources
                       .map((resource) => ResourceWidget(resource: resource))
-                      .toList(),
+                      ,
                 ],
               ),
             ),
@@ -49,7 +49,7 @@ class SubtaskWidget extends StatelessWidget {
                   ),
                   ...subtask.quizzes
                       .map((quiz) => QuizWidget(quiz: quiz))
-                      .toList(),
+                      ,
                 ],
               ),
             ),

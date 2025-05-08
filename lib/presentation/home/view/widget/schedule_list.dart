@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:study_tracker_mobile/app/constant.dart';
 import 'package:study_tracker_mobile/presentation/home/cubit/home_cubit.dart';
 import 'package:study_tracker_mobile/presentation/home/cubit/home_state.dart';
 import 'package:study_tracker_mobile/presentation/resources/assets_manager.dart';
