@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:study_tracker_mobile/domain/model/roadmap.dart';
-import 'package:study_tracker_mobile/presentation/generate/view/roadmap_view.dart';
 import 'package:study_tracker_mobile/presentation/generate/view/widget/task_widget.dart';
-import 'package:study_tracker_mobile/presentation/resources/color_manager.dart';
 
 class StageWidget extends StatelessWidget {
   final Stage stage;

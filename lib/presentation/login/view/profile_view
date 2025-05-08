@@ -2,24 +2,79 @@ import 'package:flutter/material.dart';
 import 'package:study_tracker_mobile/app/helper.dart';
 import 'package:study_tracker_mobile/domain/model/profile_user.dart';
 
-class ProfileView extends StatelessWidget {
+class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // Move the data initialization inside the build method
-    final ProfileUser demoUser = ProfileUser(
+  State<ProfileView> createState() => _ProfileViewState();
+}
+
+class _ProfileViewState extends State<ProfileView> {
+  late TextEditingController usernameController;
+  late TextEditingController nameController;
+  late TextEditingController dobController;
+  late TextEditingController genderController;
+  late TextEditingController ageController;
+  late TextEditingController occupationController;
+
+  bool isSaveEnabled = false;
+
+  @override
+  void initState() {
+    super.initState();
+    final demoUser = ProfileUser(
       id: '1',
-      userId: 'user-001',
-      username: 'qian',
-      email: 'john.doe@example.com',
+      userId: 'user122',
+      username: 'vld123',
+      email: 'vld@example.com',
       name: 'Hello',
-      dob: DateTime(1995, 6, 15),
+      dob: DateTime(2000, 5, 1),
       gender: 'Male',
       age: 29,
-      occupation: 'Software Engineer',
+      occupation: 'Sinh Vien',
     );
 
+    usernameController = TextEditingController(text: demoUser.username);
+    nameController = TextEditingController(text: demoUser.name);
+    dobController = TextEditingController(text: _formatDate(demoUser.dob));
+    genderController = TextEditingController(text: demoUser.gender);
+    ageController = TextEditingController(text: demoUser.age.toString());
+    occupationController = TextEditingController(text: demoUser.occupation);
+
+    // Add listeners to detect changes
+    _addTextFieldListeners();
+  }
+
+  void _addTextFieldListeners() {
+    for (var controller in [
+      usernameController,
+      nameController,
+      dobController,
+      genderController,
+      ageController,
+      occupationController
+    ]) {
+      controller.addListener(() {
+        setState(() {
+          isSaveEnabled = true; // Enable the Save button when any field changes
+        });
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    usernameController.dispose();
+    nameController.dispose();
+    dobController.dispose();
+    genderController.dispose();
+    ageController.dispose();
+    occupationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('User Profile')),
       body: SingleChildScrollView(
@@ -30,39 +85,49 @@ class ProfileView extends StatelessWidget {
             const Center(
               child: CircleAvatar(
                 radius: 50,
-                backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=3'),
+                backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=29'),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Center(
+              child: Text(
+                'vld@example.com', // Display the email below the avatar
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey,
+                ),
               ),
             ),
             const SizedBox(height: 20),
-            _buildItem("ID", demoUser.id),
-            _buildItem("User ID", demoUser.userId),
-            _buildItem("Username", demoUser.username),
-            _buildItem("Email", demoUser.email),
-            _buildItem("Name", demoUser.name),
-            _buildItem("Date of Birth", _formatDate(demoUser.dob)),
-            _buildItem("Gender", demoUser.gender),
-            _buildItem("Age", demoUser.age.toString()),
-            _buildItem("Occupation", demoUser.occupation),
+            _buildTextField("Username", usernameController),
+            _buildTextField("Name", nameController),
+            _buildTextField("Date of Birth", dobController),
+            _buildTextField("Gender", genderController),
+            _buildTextField("Age", ageController),
+            _buildTextField("Occupation", occupationController),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildItem(String label, String value) {
+  Widget _buildTextField(String label, TextEditingController controller, {bool readOnly = false}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "$label: ",
-            style: const TextStyle(fontWeight: FontWeight.bold),
+      child: TextField(
+        controller: controller,
+        readOnly: readOnly, // Disable editing if readOnly is true
+        decoration: InputDecoration(
+          labelText: label,
+          border: InputBorder.none, // Remove all borders
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey), // Bottom border
           ),
-          Expanded(
-            child: Text(value),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue), // Bottom border when focused
           ),
-        ],
+        ),
       ),
     );
   }

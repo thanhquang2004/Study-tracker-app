@@ -1,8 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
 import 'package:study_tracker_mobile/data/services/note_service.dart';
-import 'package:study_tracker_mobile/domain/model/note.dart';
 import 'package:study_tracker_mobile/presentation/notes/cubit/note_state.dart';
 import 'package:study_tracker_mobile/presentation/resources/color_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/routes_manager.dart';

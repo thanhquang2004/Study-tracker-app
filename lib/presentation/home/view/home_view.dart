@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:study_tracker_mobile/presentation/home/cubit/change_password_cubit.dart';
 import 'package:study_tracker_mobile/presentation/home/cubit/home_cubit.dart';
+import 'package:study_tracker_mobile/presentation/home/cubit/home_state.dart';
 import 'package:study_tracker_mobile/presentation/home/view/widget/date_time_list.dart';
 import 'package:study_tracker_mobile/presentation/home/view/widget/home_app_bar.dart';
 import 'package:study_tracker_mobile/presentation/home/view/widget/home_drawer.dart';
@@ -57,7 +59,8 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
           backgroundColor: XColors.primary,
           shape: const CircleBorder(),
           child: Padding(
-            padding: const EdgeInsets.all(AppSize.s8).copyWith(top: AppSize.s12),
+            padding:
+                const EdgeInsets.all(AppSize.s8).copyWith(top: AppSize.s12),
             child: Image.asset(
               'assets/icons/bot.png',
               fit: BoxFit.cover,

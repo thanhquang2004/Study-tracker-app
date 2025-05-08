@@ -9,6 +9,7 @@ class ApiManager {
   static String login = '$urlIdentity/auth/token';
   static String register = '$urlIdentity/users/registration';
   static String refreshToken = '$urlIdentity/auth/refresh';
+  static String changePassword = '$urlIdentity/users/my-info/password';
   static String logout = '/auth/logout';
   static String user = '/user';
   static String userUpdate = '/user/update';
