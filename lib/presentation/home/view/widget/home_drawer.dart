@@ -11,64 +11,16 @@ class HomeDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: XColors.neutral_9,
       child: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildHeader(context),
-            Expanded(
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: [
-                  _buildMenuItem(
-                    context,
-                    icon: Icons.person,
-                    title: 'Thông tin cá nhân',
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.pushNamed(context, Routes.profile);
-                    },
-                  ),
-                  _buildMenuItem(
-                    context,
-                    icon: Icons.edit,
-                    title: 'Đổi mật khẩu',
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.pushNamed(context, Routes.changePassword);
-                    },
-                  ),
-                  _buildMenuItem(
-                    context,
-                    icon: Icons.notifications,
-                    title: 'Thông báo',
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.pushNamed(context, Routes.notifications);
-                    },
-                  ),
-                  _buildMenuItem(
-                    context,
-                    icon: Icons.settings,
-                    title: 'Cài đặt ',
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.pushNamed(context, Routes.settings);
-                    },
-                  ),
-                  const Spacer(),
-                  _buildMenuItem(
-                    context,
-                    icon: Icons.logout,
-                    title: 'Đăng xuất',
-                    isDanger: true,
-                    onTap: () {
-                      Navigator.pop(context);
-                      _showLogoutDialog(context);
-                    },
-                  ),
-                ],
-              ),
-            ),
+            // _buildHeader(context),
+            _buildMenuItems(context),
+            const Spacer(),
+            _buildLogoutItem(context),
+            const SizedBox(height: AppSize.s16),
           ],
         ),
       ),
@@ -77,32 +29,73 @@ class HomeDrawer extends StatelessWidget {
 
   Widget _buildHeader(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(AppSize.s16),
+      width: double.infinity,
+      padding: const EdgeInsets.all(AppSize.s24),
       decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor.withOpacity(0.1),
+        gradient: LinearGradient(
+          colors: [XColors.primary, XColors.primary2],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
       ),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CircleAvatar(
-            radius: AppSize.s24,
-            backgroundImage: NetworkImage('https://via.placeholder.com/48'),
+          Text(
+            'John Doe',
+            style: getBoldStyle(color: Colors.white).copyWith(fontSize: AppSize.s20),
           ),
-          const SizedBox(width: AppSize.s16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'John Doe',
-                style: getBoldStyle(color: Colors.black),
-              ),
-              Text(
-                'john.doe@example.com',
-                style: getRegularStyle(color: Colors.grey),
-              ),
-            ],
+          const SizedBox(height: AppSize.s8),
+          Text(
+            'john.doe@example.com',
+            style: getRegularStyle(color: Colors.white.withOpacity(0.9))
+                .copyWith(fontSize: AppSize.s14),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildMenuItems(BuildContext context) {
+    return Column(
+      children: [
+        _buildMenuItem(
+          context,
+          icon: Icons.person_outline,
+          title: 'Profile',
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.pushNamed(context, Routes.profile);
+          },
+        ),
+        _buildMenuItem(
+          context,
+          icon: Icons.lock_outline,
+          title: 'Change Password',
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.pushNamed(context, Routes.changePassword);
+          },
+        ),
+        _buildMenuItem(
+          context,
+          icon: Icons.notifications_outlined,
+          title: 'Notifications',
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.pushNamed(context, Routes.notifications);
+          },
+        ),
+        _buildMenuItem(
+          context,
+          icon: Icons.settings_outlined,
+          title: 'Settings',
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.pushNamed(context, Routes.settings);
+          },
+        ),
+      ],
     );
   }
 
@@ -113,18 +106,47 @@ class HomeDrawer extends StatelessWidget {
     required VoidCallback onTap,
     bool isDanger = false,
   }) {
-    return ListTile(
-      leading: Icon(
-        icon,
-        color: isDanger ? XColors.semanticError : null,
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: AppSize.s8, vertical: AppSize.s4),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(AppSize.s8),
+        boxShadow: [
+          BoxShadow(
+            color: XColors.neutral_6.withOpacity(0.1),
+            blurRadius: AppSize.s8,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
-      title: Text(
-        title,
-        style: isDanger
-            ? getRegularStyle(color: XColors.semanticError)
-            : getRegularStyle(color: Colors.black),
+      child: ListTile(
+        leading: Icon(
+          icon,
+          color: isDanger ? XColors.semanticError : XColors.primary2,
+          size: AppSize.s24,
+        ),
+        title: Text(
+          title,
+          style: getRegularStyle(
+            color: isDanger ? XColors.semanticError : XColors.neutral_1,
+          ).copyWith(fontSize: AppSize.s16),
+        ),
+        onTap: onTap,
+        contentPadding: const EdgeInsets.symmetric(horizontal: AppSize.s16),
       ),
-      onTap: onTap,
+    );
+  }
+
+  Widget _buildLogoutItem(BuildContext context) {
+    return _buildMenuItem(
+      context,
+      icon: Icons.logout,
+      title: 'Logout',
+      isDanger: true,
+      onTap: () {
+        Navigator.pop(context);
+        _showLogoutDialog(context);
+      },
     );
   }
 
@@ -132,25 +154,45 @@ class HomeDrawer extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Logout', style: getBoldStyle(color: Colors.black)),
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppSize.s12),
+        ),
+        title: Text(
+          'Logout',
+          style: getBoldStyle(color: XColors.neutral_1).copyWith(fontSize: AppSize.s18),
+        ),
         content: Text(
           'Are you sure you want to logout?',
-          style: getRegularStyle(color: Colors.black),
+          style: getRegularStyle(color: XColors.neutral_3).copyWith(fontSize: AppSize.s16),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('Cancel', style: getRegularStyle(color: Colors.black)),
+            child: Text(
+              'Cancel',
+              style: getRegularStyle(color: XColors.neutral_4).copyWith(fontSize: AppSize.s14),
+            ),
           ),
           TextButton(
             onPressed: () {
               Navigator.pop(context);
               AuthService().signOut().catchError((error) {
-                print('Logout error: $error');
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      'Logout failed: $error',
+                      style: getRegularStyle(color: Colors.white),
+                    ),
+                    backgroundColor: XColors.semanticError,
+                  ),
+                );
               });
             },
-            child: Text('Logout',
-                style: getRegularStyle(color: XColors.semanticError)),
+            child: Text(
+              'Logout',
+              style: getRegularStyle(color: XColors.semanticError).copyWith(fontSize: AppSize.s14),
+            ),
           ),
         ],
       ),
