@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:study_tracker_mobile/data/services/auth_service.dart';
 import 'package:study_tracker_mobile/presentation/resources/color_manager.dart';
+import 'package:study_tracker_mobile/presentation/resources/routes_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/styles_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/value_manager.dart';
 
@@ -24,7 +25,7 @@ class HomeDrawer extends StatelessWidget {
                     title: 'Thông tin cá nhân',
                     onTap: () {
                       Navigator.pop(context);
-                      // TODO: Navigate to profile
+                      Navigator.pushNamed(context, Routes.profile);
                     },
                   ),
                   _buildMenuItem(
@@ -33,7 +34,7 @@ class HomeDrawer extends StatelessWidget {
                     title: 'Đổi mật khẩu',
                     onTap: () {
                       Navigator.pop(context);
-                      // TODO: Navigate to edit profile
+                      Navigator.pushNamed(context, Routes.changePassword);
                     },
                   ),
                   _buildMenuItem(
@@ -42,7 +43,7 @@ class HomeDrawer extends StatelessWidget {
                     title: 'Thông báo',
                     onTap: () {
                       Navigator.pop(context);
-                      // TODO: Navigate to notifications
+                      Navigator.pushNamed(context, Routes.notifications);
                     },
                   ),
                   _buildMenuItem(
@@ -51,7 +52,7 @@ class HomeDrawer extends StatelessWidget {
                     title: 'Cài đặt ',
                     onTap: () {
                       Navigator.pop(context);
-                      // TODO: Navigate to settings
+                      Navigator.pushNamed(context, Routes.settings);
                     },
                   ),
                   const Spacer(),

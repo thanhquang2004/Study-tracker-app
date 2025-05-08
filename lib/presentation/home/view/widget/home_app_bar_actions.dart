@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:study_tracker_mobile/presentation/resources/color_manager.dart';
+import 'package:study_tracker_mobile/presentation/resources/routes_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/styles_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/value_manager.dart';
 
@@ -88,22 +89,22 @@ class HomeAppBarActions {
   }
 
   static void _navigateToProfile(BuildContext context) {
-    // TODO: Implement navigation
+  Navigator.pushNamed(context, Routes.profile);
     print('Navigate to profile');
   }
 
   static void _navigateToEditProfile(BuildContext context) {
-    // TODO: Implement navigation
+  Navigator.pushNamed(context, Routes.changePassword);
     print('Navigate to edit profile');
   }
 
   static void _navigateToNotifications(BuildContext context) {
-    // TODO: Implement navigation
+  Navigator.pushNamed(context, Routes.notifications);
     print('Navigate to notifications');
   }
 
   static void _navigateToSettings(BuildContext context) {
-    // TODO: Implement navigation
+  Navigator.pushNamed(context, Routes.settings);
     print('Navigate to settings');
   }
 

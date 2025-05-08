@@ -1,5 +1,5 @@
-import 'package:study_tracker_mobile/domain/model/user.dart';
+import 'package:study_tracker_mobile/domain/model/profile_user.dart';
 
 abstract class UserRepository {
-  Future<User> getUserProfile();
+  Future<ProfileUser> getUserProfile();
 }

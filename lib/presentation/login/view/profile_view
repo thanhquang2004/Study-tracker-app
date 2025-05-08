@@ -1,0 +1,74 @@
+import 'package:flutter/material.dart';
+import 'package:study_tracker_mobile/app/helper.dart';
+import 'package:study_tracker_mobile/domain/model/profile_user.dart';
+
+class ProfileView extends StatelessWidget {
+  const ProfileView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // Move the data initialization inside the build method
+    final ProfileUser demoUser = ProfileUser(
+      id: '1',
+      userId: 'user-001',
+      username: 'qian',
+      email: 'john.doe@example.com',
+      name: 'Hello',
+      dob: DateTime(1995, 6, 15),
+      gender: 'Male',
+      age: 29,
+      occupation: 'Software Engineer',
+    );
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('User Profile')),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Center(
+              child: CircleAvatar(
+                radius: 50,
+                backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=3'),
+              ),
+            ),
+            const SizedBox(height: 20),
+            _buildItem("ID", demoUser.id),
+            _buildItem("User ID", demoUser.userId),
+            _buildItem("Username", demoUser.username),
+            _buildItem("Email", demoUser.email),
+            _buildItem("Name", demoUser.name),
+            _buildItem("Date of Birth", _formatDate(demoUser.dob)),
+            _buildItem("Gender", demoUser.gender),
+            _buildItem("Age", demoUser.age.toString()),
+            _buildItem("Occupation", demoUser.occupation),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildItem(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "$label: ",
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          Expanded(
+            child: Text(value),
+          ),
+        ],
+      ),
+    );
+  }
+
+  static String _formatDate(DateTime date) {
+    return "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
+  }
+}
+

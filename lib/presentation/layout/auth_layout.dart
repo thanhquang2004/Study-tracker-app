@@ -139,8 +139,11 @@ class _AuthenticateLayoutState extends State<AuthenticateLayout> {
   }
 
   Widget _buildErrorText() {
-    return Padding(
+    return Container(
       padding: const EdgeInsets.symmetric(vertical: AppSize.s8),
+      constraints: BoxConstraints(
+        maxHeight: 200,
+      ),
       child: Text(
         widget.errorText!,
         style: getRegularStyle(color: XColors.semanticError, fontSize: 16),

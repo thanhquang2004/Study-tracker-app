@@ -22,7 +22,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   /// Hàm khởi tạo, kiểm tra `isRemember` và load dữ liệu nếu cần
   Future<void> _init() async {
-    debugPrint("Init LoginCubit");
+    debugPrint("Init Cubit");
     final isRemember = await storage.read(key: "isRemember") == "true";
     if (isRemember) {
       await loadSavedCredentials();
