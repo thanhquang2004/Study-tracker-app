@@ -18,8 +18,11 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
+class _HomeViewState extends State<HomeView> with WidgetsBindingObserver, RouteAware {
   late HomeCubit _homeCubit;
+
+  // Thêm RouteObserver để theo dõi điều hướng
+  static final RouteObserver<ModalRoute> routeObserver = RouteObserver<ModalRoute>();
 
   @override
   void initState() {
@@ -30,7 +33,19 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Đăng ký RouteAware với RouteObserver
+    final ModalRoute? route = ModalRoute.of(context);
+    if (route != null) {
+      routeObserver.subscribe(this, route);
+    }
+  }
+
+  @override
   void dispose() {
+    // Hủy đăng ký RouteAware
+    routeObserver.unsubscribe(this);
     WidgetsBinding.instance.removeObserver(this);
     _homeCubit.close();
     super.dispose();
@@ -41,6 +56,12 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
     if (state == AppLifecycleState.resumed) {
       _homeCubit.refreshData();
     }
+  }
+
+  // Được gọi khi HomeView quay lại sau khi một trang khác bị pop
+  @override
+  void didPopNext() {
+    _homeCubit.refreshData(); // Làm mới dữ liệu khi quay lại
   }
 
   @override
@@ -76,14 +97,12 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
                 SliverToBoxAdapter(
                   child: const DateTimeList(),
                 ),
-                // NoteList
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: const NoteList(),
                   ),
                 ),
-                // ScheduleList
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),

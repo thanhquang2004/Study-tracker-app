@@ -11,12 +11,12 @@ class TitleRow extends StatelessWidget {
   final Widget? orther;
 
   const TitleRow({
-    Key? key,
+    super.key,
     required this.title,
     this.onTap,
     this.hasMore = true,
     this.orther,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

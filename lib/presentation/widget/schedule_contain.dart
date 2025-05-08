@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:study_tracker_mobile/data/helpers/date_helper.dart';
 import 'package:study_tracker_mobile/domain/model/schedule.dart';

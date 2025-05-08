@@ -194,31 +194,52 @@ class ScheduleContent extends StatelessWidget {
   }
 
   Widget _buildTitleField(BuildContext context, SchedulesState state) {
-    return TextField(
-      onChanged: (value) => context.read<SchedulesCubit>().updateTitle(value),
-      decoration: InputDecoration(
-        labelText: 'Title',
-        border: const OutlineInputBorder(),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: XColors.primary),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Title',
+          style: getBoldStyle(fontSize: AppSize.s16),
         ),
-        errorText: state.isTitleValid ? null : 'Required',
-      ),
-      controller: TextEditingController(text: state.title),
+        TextField(
+          onChanged: (value) => context.read<SchedulesCubit>().updateTitle(value),
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(),
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: XColors.primary),
+            ),
+            errorText: state.isTitleValid ? null : 'Title is required',
+          ),
+          controller: TextEditingController(text: state.title),
+        ),
+      ],
     );
   }
 
   Widget _buildDescriptionField(BuildContext context, SchedulesState state) {
-    return TextField(
-      onChanged: (value) => context.read<SchedulesCubit>().updateDescription(value),
-      decoration: const InputDecoration(
-        border: OutlineInputBorder(),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: XColors.primary),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Description',
+          style: getBoldStyle(fontSize: AppSize.s16),
         ),
-      ),
-      maxLines: 5,
-      controller: TextEditingController(text: state.description),
+        TextField(
+          onChanged: (value) => context.read<SchedulesCubit>().updateDescription(value),
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: XColors.primary),
+            ),
+          ),
+          maxLines: 5,
+          controller: TextEditingController(text: state.description),
+        ),
+      ],
     );
   }
 

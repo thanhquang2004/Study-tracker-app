@@ -6,7 +6,7 @@ import 'package:study_tracker_mobile/presentation/generate/view/widget/subtask_w
 class TaskWidget extends StatelessWidget {
   final Task task;
 
-  const TaskWidget({Key? key, required this.task}) : super(key: key);
+  const TaskWidget({super.key, required this.task});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class TaskWidget extends StatelessWidget {
           ),
           ...task.subtasks
               .map((subtask) => SubtaskWidget(subtask: subtask))
-              .toList(),
+              ,
         ],
       ),
     );

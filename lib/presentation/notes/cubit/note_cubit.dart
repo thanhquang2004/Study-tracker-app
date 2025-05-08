@@ -14,7 +14,7 @@ class NoteCubit extends Cubit<NoteState>{
     errorMessage: null,
   );
   final NoteService _noteService = NoteService();
-  NoteCubit(NoteState initialState) : super(initialState);
+  NoteCubit(super.initialState);
 
   Future<void> createNote(String title, String content) async {
     emit(state.copyWith(isLoading: true));

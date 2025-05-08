@@ -10,7 +10,7 @@ import 'package:study_tracker_mobile/presentation/resources/styles_manager.dart'
 import 'package:study_tracker_mobile/presentation/widget/loader.dart';
 
 class GenerateView extends StatefulWidget {
-  const GenerateView({Key? key}) : super(key: key);
+  const GenerateView({super.key});
 
   @override
   _GenerateViewState createState() => _GenerateViewState();
