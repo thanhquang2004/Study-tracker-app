@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:study_tracker_mobile/app/helper.dart';
 import 'package:study_tracker_mobile/data/services/auth_service.dart';
 import 'package:study_tracker_mobile/presentation/register/cubit/register_state.dart';
 import 'package:study_tracker_mobile/presentation/resources/routes_manager.dart';
@@ -27,16 +28,16 @@ class RegisterCubit extends Cubit<RegisterState> {
   Future<void> register() async {
     try {
       Get.dialog(LoadingDialog());
+      print(formatDateTime(state.dobController.text));
       final data = {
         'username': state.usernameController.text,
         'email': state.emailController.text,
         'name': state.usernameController.text,
-        'dob': (state.dobController.text),
+        'dob': state.dobController.text,
         'password': state.passwordController.text,
         'occupation': state.occupation,
       };
-      if (state.passwordController.text !=
-          state.confirmPasswordController.text) {
+      if (state.passwordController.text != state.confirmPasswordController.text) {
         Get.back();
         emit(state.copyWith(
           isError: true,
@@ -64,7 +65,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         isError: false,
         errorMessage: "",
       ));
-      Get.offAllNamed(Routes.loginRoute);
+      Get.toNamed(Routes.loginRoute);
     } catch (e) {
       Get.back();
       emit(state.copyWith(

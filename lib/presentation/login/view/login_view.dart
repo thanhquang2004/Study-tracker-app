@@ -76,7 +76,7 @@ class _LoginViewState extends State<LoginView> {
             errorText: state.isError ? state.errorMessage : "",
             prefixNavigateText: AppStrings.haveNotAccount,
             navigateText: AppStrings.register,
-            navigate: () => Get.offAllNamed(Routes.registerRoute),
+            navigate: () => Get.toNamed(Routes.registerRoute),
           );
         },
       ),

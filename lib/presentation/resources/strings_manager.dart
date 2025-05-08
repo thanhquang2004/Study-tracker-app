@@ -26,6 +26,7 @@ class AppStrings {
   static const String username = "Username";
   static const String email = "Email";
   static const String dob = "Date of Birth";
+  static const String ddmmyyyy = "dd/MM/yyyy";
   static const String password = "Password";
   static const String confirmPassword = "Confirm Password";
   static const String occupation = "Occupation";

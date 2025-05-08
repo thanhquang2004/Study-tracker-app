@@ -9,6 +9,7 @@ import 'package:study_tracker_mobile/presentation/register/cubit/register_cubit.
 import 'package:study_tracker_mobile/presentation/register/cubit/register_state.dart';
 import 'package:study_tracker_mobile/presentation/resources/routes_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/strings_manager.dart';
+import 'package:study_tracker_mobile/presentation/widget/authen_date_picker.dart';
 import 'package:study_tracker_mobile/presentation/widget/authen_dropdow.dart';
 import 'package:study_tracker_mobile/presentation/widget/authen_field.dart';
 
@@ -20,12 +21,17 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
+  List<String> occupationOptions = [
+    'School Student',
+    'University Student',
+    'Working Professional',
+    'Other',
+  ];
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => RegisterCubit(),
-      child:
-          BlocBuilder<RegisterCubit, RegisterState>(builder: (context, state) {
+      child: BlocBuilder<RegisterCubit, RegisterState>(builder: (context, state) {
         return AuthenticateLayout(
           height: 0.78 * Constants.deviceHeight,
           title: AppStrings.register,
@@ -42,10 +48,16 @@ class _RegisterViewState extends State<RegisterView> {
               hint: AppStrings.email,
               prefixIcon: Icons.email,
             ),
-            AuthenTextField(
+            // AuthenTextField(
+            //   controller: state.dobController,
+            //   label: AppStrings.dob,
+            //   hint: '${AppStrings.dob} (${AppStrings.ddmmyyyy})',
+            //   prefixIcon: Icons.calendar_today,
+            // ),
+            AuthenDatePicker(
               controller: state.dobController,
               label: AppStrings.dob,
-              hint: AppStrings.dob,
+              hint: '${AppStrings.dob} (${AppStrings.ddmmyyyy})',
               prefixIcon: Icons.calendar_today,
             ),
             AuthenTextField(
@@ -65,7 +77,7 @@ class _RegisterViewState extends State<RegisterView> {
             AuthenDropdown<String>(
               label: AppStrings.occupation,
               hint: AppStrings.occupation,
-              items: ['Học sinh', 'Sinh viên', 'Người đi làm', 'Khác'],
+              items: occupationOptions,
               value: state.occupation,
               prefixIcon: Icons.school,
               onChanged: (val) {
@@ -78,7 +90,7 @@ class _RegisterViewState extends State<RegisterView> {
           errorText: state.isError ? state.errorMessage : "",
           prefixNavigateText: AppStrings.haveAccount,
           navigateText: AppStrings.login,
-          navigate: () => Get.offAndToNamed(Routes.loginRoute),
+          navigate: () => Get.back(),
         );
       }),
     );
