@@ -11,6 +11,7 @@ class ApiManager {
   static String refreshToken = '$urlIdentity/auth/refresh';
   static String logout = '/auth/logout';
   static String user = '/user';
+  static String profile = '$urlIdentity/users/my-info';
   static String userUpdate = '/user/update';
   static String userPassword = '/user/password';
   static String userAvatar = '/user/avatar';
@@ -28,4 +29,5 @@ class ApiManager {
   static String createSchedule = '$urlSchedule/create-schedule';
   static String addAllSchedule = '$urlSchedule/add-all';   
   static String scheduleById(String id) => '$urlSchedule/$id';
+
 }

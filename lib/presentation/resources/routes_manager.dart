@@ -3,10 +3,10 @@ import 'package:study_tracker_mobile/presentation/generate/view/generate_view.da
 import 'package:study_tracker_mobile/presentation/home/view/home_view.dart';
 import 'package:study_tracker_mobile/presentation/login/view/change_password_view.dart';
 import 'package:study_tracker_mobile/presentation/login/view/login_view.dart';
-import 'package:study_tracker_mobile/presentation/login/view/notifications_view';
-import 'package:study_tracker_mobile/presentation/login/view/profile_view';
+
 import 'package:study_tracker_mobile/presentation/login/view/settings_view.dart';
 import 'package:study_tracker_mobile/presentation/onboarding/view/onboarding_view.dart';
+import 'package:study_tracker_mobile/presentation/profile/profile_view.dart';
 import 'package:study_tracker_mobile/presentation/register/view/register_view.dart';
 import 'package:study_tracker_mobile/presentation/resources/strings_manager.dart';
 import 'package:study_tracker_mobile/presentation/splash/splash_view.dart';
@@ -45,8 +45,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ProfileView());
       case Routes.changePassword:
         return MaterialPageRoute(builder: (_) => ChangePasswordView());
-      case Routes.notifications:
-        return MaterialPageRoute(builder: (_) => NotificationsView());
+      // case Routes.notifications:
+      //   return MaterialPageRoute(builder: (_) => NotificationsView());
       case Routes.settings:
         return MaterialPageRoute(builder: (_) => SettingsView());
       default:
