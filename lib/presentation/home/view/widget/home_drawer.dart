@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
 import 'package:study_tracker_mobile/data/services/auth_service.dart';
 import 'package:study_tracker_mobile/presentation/home/cubit/change_password_cubit.dart';
 import 'package:study_tracker_mobile/presentation/home/cubit/change_password_state.dart';
@@ -46,8 +48,7 @@ class HomeDrawer extends StatelessWidget {
         children: [
           Text(
             'John Doe',
-            style: getBoldStyle(color: Colors.white)
-                .copyWith(fontSize: AppSize.s20),
+            style: getBoldStyle(color: Colors.white).copyWith(fontSize: AppSize.s20),
           ),
           const SizedBox(height: AppSize.s8),
           Text(
@@ -87,7 +88,19 @@ class HomeDrawer extends StatelessWidget {
           title: 'Notifications',
           onTap: () {
             Navigator.pop(context);
-            Navigator.pushNamed(context, Routes.notifications);
+            // Navigator.pushNamed(context, Routes.notifications);
+            Get.showSnackbar(
+              GetSnackBar(
+                title: 'Notifications',
+                message: 'This feature is not available yet.',
+                duration: const Duration(seconds: 2),
+                backgroundColor: XColors.neutral_7,
+                borderRadius: AppSize.s20,
+                padding: const EdgeInsets.all(AppSize.s16),
+                margin: const EdgeInsets.symmetric(horizontal: AppSize.s32),
+                snackPosition: SnackPosition.BOTTOM,
+              ),
+            );
           },
         ),
         _buildMenuItem(
@@ -96,7 +109,19 @@ class HomeDrawer extends StatelessWidget {
           title: 'Settings',
           onTap: () {
             Navigator.pop(context);
-            Navigator.pushNamed(context, Routes.settings);
+            // Navigator.pushNamed(context, Routes.settings);
+            Get.showSnackbar(
+              GetSnackBar(
+                title: 'Settings',
+                message: 'This feature is not available yet.',
+                duration: const Duration(seconds: 2),
+                backgroundColor: XColors.neutral_7,
+                borderRadius: AppSize.s20,
+                padding: const EdgeInsets.all(AppSize.s16),
+                margin: const EdgeInsets.symmetric(horizontal: AppSize.s32),
+                snackPosition: SnackPosition.BOTTOM,
+              ),
+            );
           },
         ),
       ],
@@ -111,8 +136,7 @@ class HomeDrawer extends StatelessWidget {
     bool isDanger = false,
   }) {
     return Container(
-      margin: const EdgeInsets.symmetric(
-          horizontal: AppSize.s8, vertical: AppSize.s4),
+      margin: const EdgeInsets.symmetric(horizontal: AppSize.s8, vertical: AppSize.s4),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(AppSize.s8),
@@ -165,21 +189,18 @@ class HomeDrawer extends StatelessWidget {
         ),
         title: Text(
           'Logout',
-          style: getBoldStyle(color: XColors.neutral_1)
-              .copyWith(fontSize: AppSize.s18),
+          style: getBoldStyle(color: XColors.neutral_1).copyWith(fontSize: AppSize.s18),
         ),
         content: Text(
           'Are you sure you want to logout?',
-          style: getRegularStyle(color: XColors.neutral_3)
-              .copyWith(fontSize: AppSize.s16),
+          style: getRegularStyle(color: XColors.neutral_3).copyWith(fontSize: AppSize.s16),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: Text(
               'Cancel',
-              style: getRegularStyle(color: XColors.neutral_4)
-                  .copyWith(fontSize: AppSize.s14),
+              style: getRegularStyle(color: XColors.neutral_4).copyWith(fontSize: AppSize.s14),
             ),
           ),
           TextButton(
@@ -199,8 +220,7 @@ class HomeDrawer extends StatelessWidget {
             },
             child: Text(
               'Logout',
-              style: getRegularStyle(color: XColors.semanticError)
-                  .copyWith(fontSize: AppSize.s14),
+              style: getRegularStyle(color: XColors.semanticError).copyWith(fontSize: AppSize.s14),
             ),
           ),
         ],
@@ -233,7 +253,7 @@ class HomeDrawer extends StatelessWidget {
             },
             builder: (context, state) {
               return AlertDialog(
-                title: Text('Đổi mật khẩu'),
+                title: Text('Change Password'),
                 content: SizedBox(
                   width: MediaQuery.of(context).size.width * 0.7,
                   child: Column(
@@ -243,18 +263,14 @@ class HomeDrawer extends StatelessWidget {
                         controller: oldPasswordController,
                         obscureText: !state.isOldPasswordVisible,
                         decoration: InputDecoration(
-                          labelText: 'Mật khẩu cũ(*)',
+                          labelText: 'Old Password(*)',
                           border: const OutlineInputBorder(),
                           suffixIcon: IconButton(
                             icon: Icon(
-                              state.isOldPasswordVisible
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
+                              state.isOldPasswordVisible ? Icons.visibility : Icons.visibility_off,
                             ),
                             onPressed: () {
-                              context
-                                  .read<ChangePasswordCubit>()
-                                  .toggleOldPasswordVisibility();
+                              context.read<ChangePasswordCubit>().toggleOldPasswordVisibility();
                             },
                           ),
                         ),
@@ -264,18 +280,14 @@ class HomeDrawer extends StatelessWidget {
                         controller: newPasswordController,
                         obscureText: !state.isNewPasswordVisible,
                         decoration: InputDecoration(
-                          labelText: 'Mật khẩu mới(*)',
+                          labelText: 'New Password(*)',
                           border: const OutlineInputBorder(),
                           suffixIcon: IconButton(
                             icon: Icon(
-                              state.isNewPasswordVisible
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
+                              state.isNewPasswordVisible ? Icons.visibility : Icons.visibility_off,
                             ),
                             onPressed: () {
-                              context
-                                  .read<ChangePasswordCubit>()
-                                  .toggleNewPasswordVisibility();
+                              context.read<ChangePasswordCubit>().toggleNewPasswordVisibility();
                             },
                           ),
                         ),
@@ -285,7 +297,7 @@ class HomeDrawer extends StatelessWidget {
                         controller: confirmPasswordController,
                         obscureText: !state.isConfirmPasswordVisible,
                         decoration: InputDecoration(
-                          labelText: 'Xác nhận mật khẩu(*)',
+                          labelText: 'Confirm Password(*)',
                           border: const OutlineInputBorder(),
                           suffixIcon: IconButton(
                             icon: Icon(
@@ -294,9 +306,7 @@ class HomeDrawer extends StatelessWidget {
                                   : Icons.visibility_off,
                             ),
                             onPressed: () {
-                              context
-                                  .read<ChangePasswordCubit>()
-                                  .toggleConfirmPasswordVisibility();
+                              context.read<ChangePasswordCubit>().toggleConfirmPasswordVisibility();
                             },
                           ),
                         ),
@@ -320,7 +330,10 @@ class HomeDrawer extends StatelessWidget {
                       Navigator.pop(context);
                     },
                     child: Text(
-                      'Huỷ bỏ',
+                      'Cancel',
+                      style: getSemiBoldStyle(
+                        color: XColors.semanticError,
+                      ).copyWith(fontSize: AppSize.s14),
                     ),
                   ),
                   TextButton(
@@ -331,7 +344,12 @@ class HomeDrawer extends StatelessWidget {
                             confirmPasswordController.text,
                           );
                     },
-                    child: Text('Xác nhận'),
+                    child: Text(
+                      'Change Password',
+                      style: getSemiBoldStyle(
+                        color: XColors.semanticSuccess,
+                      ).copyWith(fontSize: AppSize.s14),
+                    ),
                   ),
                 ],
               );
