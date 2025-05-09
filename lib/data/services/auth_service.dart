@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:study_tracker_mobile/data/config/api_client.dart';
-import 'package:study_tracker_mobile/data/config/token_interceptors.dart';
 import 'package:study_tracker_mobile/domain/repository/auth_repository.dart';
 import 'package:study_tracker_mobile/presentation/resources/api_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/routes_manager.dart';
@@ -79,14 +78,14 @@ class AuthService implements AuthRepository {
       throw ('Unexpected error: $e');
     }
   }
-
+  
   @override
   Future<void> refreshToken() async {
-    final token = await _storage.read(key: 'token');
+    final token = await _storage.read(key:'token');
     if (token == null) {
       throw ('Token not found');
     }
-    final expiryTime = await _storage.read(key: 'expiryTime');
+    final expiryTime = await _storage.read(key:'expiryTime');
     if (DateTime.now().isAfter(DateTime.parse(expiryTime!))) {
       throw ('Token expired');
     }
@@ -95,14 +94,15 @@ class AuthService implements AuthRepository {
       data: {
         'token': token,
       },
-    ).then((response) async {
+    )    .then((response) async {
       final result = response.data['result'];
       final newToken = result['token'];
       final newExpiryTime = result['expiryTime'];
 
       await _storage.write(key: 'token', value: newToken);
       await _storage.write(key: 'expiryTime', value: newExpiryTime);
-    }).catchError((error) {
+    })
+    .catchError((error) {
       if (error is DioException) {
         if (error.response?.statusCode == 401) {
           throw ('Token refresh failed');
@@ -113,24 +113,6 @@ class AuthService implements AuthRepository {
         throw ('Unexpected error: $error');
       }
     });
-  }
-
-  @override
-  Future<void> changePassword(
-    String currentPassword,
-    String newPassword,
-    String confirmPassword,
-  ) {
-    _apiCLient.interceptors.add(TokenInterceptor());
-    return _apiCLient.patch(
-      ApiManager.changePassword,
-      data: {
-        "currentPassword": currentPassword,
-        "newPassword": newPassword,
-        "confirmPassword": confirmPassword,
-      },
-    ).catchError((error) {
-      throw ('Đã xảy ra lỗi trong quá trình thay đổi mật khẩu');
-    });
+    
   }
 }

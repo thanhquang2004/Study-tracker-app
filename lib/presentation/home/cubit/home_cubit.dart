@@ -20,9 +20,9 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void refreshData() {
-    fetchNotes();
-    fetchSchedules();
-  }
+  fetchNotes();
+  fetchSchedules();
+}
 
   Future<void> fetchNotes() async {
     emit(state.copyWith(isLoading: true));
@@ -41,8 +41,7 @@ class HomeCubit extends Cubit<HomeState> {
           await scheduleService.fetchSchedulesByDate(state.selectedDate);
       emit(state.copyWith(schedules: schedules, isLoading: false));
     } catch (e) {
-      emit(
-          state.copyWith(errorMessageSchedule: e.toString(), isLoading: false));
+      emit(state.copyWith(errorMessageSchedule: e.toString(), isLoading: false));
     }
   }
 

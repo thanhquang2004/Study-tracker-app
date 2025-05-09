@@ -94,7 +94,7 @@ class HomeAppBarActions {
   }
 
   static void _navigateToEditProfile(BuildContext context) {
-    //
+  Navigator.pushNamed(context, Routes.changePassword);
     print('Navigate to edit profile');
   }
 

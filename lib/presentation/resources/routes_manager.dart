@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:study_tracker_mobile/presentation/generate/view/generate_view.dart';
 import 'package:study_tracker_mobile/presentation/home/view/home_view.dart';
+import 'package:study_tracker_mobile/presentation/login/view/change_password_view.dart';
 import 'package:study_tracker_mobile/presentation/login/view/login_view.dart';
 
 import 'package:study_tracker_mobile/presentation/login/view/settings_view.dart';
@@ -20,6 +21,7 @@ class Routes {
   static const String storeDetailsRoute = "/storeDetails";
   static const String generate = "/generate";
   static const String profile = "/profile";
+  static const String changePassword = "/changePassword";
   static const String notifications = "/notifications";
   static const String settings = "/settings";
 }
@@ -41,6 +43,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => GenerateView());
       case Routes.profile:
         return MaterialPageRoute(builder: (_) => ProfileView());
+      case Routes.changePassword:
+        return MaterialPageRoute(builder: (_) => ChangePasswordView());
       // case Routes.notifications:
       //   return MaterialPageRoute(builder: (_) => NotificationsView());
       case Routes.settings:
