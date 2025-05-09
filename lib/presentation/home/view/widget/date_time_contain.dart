@@ -36,7 +36,7 @@ class DateTimeContain extends StatelessWidget {
             day,
             style: getBoldStyle(
               color: isActive ? Colors.white : Colors.grey.shade600,
-              fontSize: 12,
+              fontSize: 10,
             ),
           ),
           const SizedBox(height: 4),
@@ -44,11 +44,11 @@ class DateTimeContain extends StatelessWidget {
             date,
             style: getRegularStyle(
               color: isActive ? Colors.white : Colors.grey.shade600,
-              fontSize: 12,
+              fontSize: 10,
             ),
           ),
         ],
       ),
     );
   }
-} 
+}
