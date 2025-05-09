@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
+import 'package:study_tracker_mobile/app/constant.dart';
 import 'package:study_tracker_mobile/data/services/schedule_service.dart';
 import 'package:study_tracker_mobile/domain/model/roadmap.dart';
 import 'package:study_tracker_mobile/domain/model/schedule.dart';
@@ -10,6 +11,7 @@ import 'package:study_tracker_mobile/presentation/resources/color_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/routes_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/styles_manager.dart';
 import 'package:study_tracker_mobile/presentation/widget/custom_button.dart';
+import 'package:study_tracker_mobile/presentation/widget/loader.dart';
 
 class RoadmapView extends StatefulWidget {
   final RoadmapResponse roadmap;
@@ -60,8 +62,35 @@ class _RoadmapViewState extends State<RoadmapView> {
           if (isLoading)
             Container(
               color: Colors.black.withOpacity(0.5),
-              child: const Center(
-                child: CircularProgressIndicator(),
+              child: Center(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 0.25 * Constants.deviceWidth),
+                  child: Container(
+                    padding: const EdgeInsets.all(16.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          blurRadius: 8.0,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Loader(),
+                        const SizedBox(height: 16),
+                        Text(
+                          'Creating schedules...',
+                          style: getRegularStyle(color: XColors.primary),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
         ],
