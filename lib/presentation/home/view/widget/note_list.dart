@@ -51,33 +51,21 @@ class NoteList extends StatelessWidget {
             const SizedBox(height: 8),
             SizedBox(
               height: 200,
-              child: state.notes.isEmpty
-                  ? Center(
-                      child: Text(
-                        'No notes available',
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: Colors.grey,
-                            ),
-                      ),
-                    )
-                  : ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount:
-                          state.notes.length > 3 ? 4 : state.notes.length + 1,
-                      itemBuilder: (context, index) {
-                        if (index == 3 ||
-                            (index == state.notes.length &&
-                                state.notes.length < 3)) {
-                          return _buildAddNoteButton(context, index);
-                        }
-                        return Padding(
-                          padding: EdgeInsets.all(
-                            index < 3 ? AppSize.s8 : 0,
-                          ),
-                          child: NoteContain(note: state.notes[index]),
-                        );
-                      },
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: state.notes.length > 3 ? 4 : state.notes.length + 1,
+                itemBuilder: (context, index) {
+                  if (index == 3 || (index == state.notes.length && state.notes.length < 3)) {
+                    return _buildAddNoteButton(context, index);
+                  }
+                  return Padding(
+                    padding: EdgeInsets.all(
+                      index < 3 ? AppSize.s8 : 0,
                     ),
+                    child: NoteContain(note: state.notes[index]),
+                  );
+                },
+              ),
             ),
             const SizedBox(height: 24),
           ],
