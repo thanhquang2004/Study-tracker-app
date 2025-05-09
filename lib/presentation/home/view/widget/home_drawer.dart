@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:study_tracker_mobile/data/services/auth_service.dart';
+import 'package:study_tracker_mobile/presentation/home/cubit/change_password_cubit.dart';
+import 'package:study_tracker_mobile/presentation/home/cubit/change_password_state.dart';
 import 'package:study_tracker_mobile/presentation/resources/color_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/routes_manager.dart';
 import 'package:study_tracker_mobile/presentation/resources/styles_manager.dart';
@@ -43,7 +46,8 @@ class HomeDrawer extends StatelessWidget {
         children: [
           Text(
             'John Doe',
-            style: getBoldStyle(color: Colors.white).copyWith(fontSize: AppSize.s20),
+            style: getBoldStyle(color: Colors.white)
+                .copyWith(fontSize: AppSize.s20),
           ),
           const SizedBox(height: AppSize.s8),
           Text(
@@ -74,7 +78,7 @@ class HomeDrawer extends StatelessWidget {
           title: 'Change Password',
           onTap: () {
             Navigator.pop(context);
-            Navigator.pushNamed(context, Routes.changePassword);
+            _showChangePasswordDialog(context);
           },
         ),
         _buildMenuItem(
@@ -107,7 +111,8 @@ class HomeDrawer extends StatelessWidget {
     bool isDanger = false,
   }) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: AppSize.s8, vertical: AppSize.s4),
+      margin: const EdgeInsets.symmetric(
+          horizontal: AppSize.s8, vertical: AppSize.s4),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(AppSize.s8),
@@ -160,18 +165,21 @@ class HomeDrawer extends StatelessWidget {
         ),
         title: Text(
           'Logout',
-          style: getBoldStyle(color: XColors.neutral_1).copyWith(fontSize: AppSize.s18),
+          style: getBoldStyle(color: XColors.neutral_1)
+              .copyWith(fontSize: AppSize.s18),
         ),
         content: Text(
           'Are you sure you want to logout?',
-          style: getRegularStyle(color: XColors.neutral_3).copyWith(fontSize: AppSize.s16),
+          style: getRegularStyle(color: XColors.neutral_3)
+              .copyWith(fontSize: AppSize.s16),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: Text(
               'Cancel',
-              style: getRegularStyle(color: XColors.neutral_4).copyWith(fontSize: AppSize.s14),
+              style: getRegularStyle(color: XColors.neutral_4)
+                  .copyWith(fontSize: AppSize.s14),
             ),
           ),
           TextButton(
@@ -191,11 +199,146 @@ class HomeDrawer extends StatelessWidget {
             },
             child: Text(
               'Logout',
-              style: getRegularStyle(color: XColors.semanticError).copyWith(fontSize: AppSize.s14),
+              style: getRegularStyle(color: XColors.semanticError)
+                  .copyWith(fontSize: AppSize.s14),
             ),
           ),
         ],
       ),
+    );
+  }
+
+  void _showChangePasswordDialog(BuildContext context) {
+    final oldPasswordController = TextEditingController();
+    final newPasswordController = TextEditingController();
+    final confirmPasswordController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return BlocProvider<ChangePasswordCubit>(
+          create: (_) => ChangePasswordCubit(),
+          child: BlocConsumer<ChangePasswordCubit, ChangePasswordState>(
+            listener: (context, state) => {
+              if (state.isSuccess)
+                {
+                  Navigator.pop(context),
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Đổi mật khẩu thành công'),
+                      backgroundColor: Colors.green,
+                    ),
+                  ),
+                }
+            },
+            builder: (context, state) {
+              return AlertDialog(
+                title: Text('Đổi mật khẩu'),
+                content: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TextField(
+                        controller: oldPasswordController,
+                        obscureText: !state.isOldPasswordVisible,
+                        decoration: InputDecoration(
+                          labelText: 'Mật khẩu cũ(*)',
+                          border: const OutlineInputBorder(),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              state.isOldPasswordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                            onPressed: () {
+                              context
+                                  .read<ChangePasswordCubit>()
+                                  .toggleOldPasswordVisibility();
+                            },
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      TextField(
+                        controller: newPasswordController,
+                        obscureText: !state.isNewPasswordVisible,
+                        decoration: InputDecoration(
+                          labelText: 'Mật khẩu mới(*)',
+                          border: const OutlineInputBorder(),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              state.isNewPasswordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                            onPressed: () {
+                              context
+                                  .read<ChangePasswordCubit>()
+                                  .toggleNewPasswordVisibility();
+                            },
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      TextField(
+                        controller: confirmPasswordController,
+                        obscureText: !state.isConfirmPasswordVisible,
+                        decoration: InputDecoration(
+                          labelText: 'Xác nhận mật khẩu(*)',
+                          border: const OutlineInputBorder(),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              state.isConfirmPasswordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                            onPressed: () {
+                              context
+                                  .read<ChangePasswordCubit>()
+                                  .toggleConfirmPasswordVisibility();
+                            },
+                          ),
+                        ),
+                      ),
+                      if (state.errorMessage != null)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16),
+                          child: Text(
+                            state.errorMessage!,
+                            style: getRegularStyle(
+                              color: XColors.semanticError,
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      'Huỷ bỏ',
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      context.read<ChangePasswordCubit>().changePassword(
+                            oldPasswordController.text,
+                            newPasswordController.text,
+                            confirmPasswordController.text,
+                          );
+                    },
+                    child: Text('Xác nhận'),
+                  ),
+                ],
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }
