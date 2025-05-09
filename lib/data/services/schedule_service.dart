@@ -32,17 +32,64 @@ class ScheduleService {
   }
 
   Future<void> addAllSchedules(List<Schedule> schedules) async {
+    const int maxItemsPerRequest = 4; // Maximum number of items per request
     try {
-      final response = await _api.post(
-        ApiManager.addAllSchedule,
-        data: schedules.map((schedule) => schedule.toJson()).toList(),
-      );
-      if (response.statusCode != 200) {
-        throw Exception('Failed to add schedules: ${response.statusCode}');
+      // Retrieve token from secure storage
+      final token = await _storage.read(key: 'token');
+      if (token == null) {
+        throw Exception('No authentication token found');
       }
+
+      // Split schedules into batches of maxItemsPerRequest
+      final batches = <List<Schedule>>[];
+      for (var i = 0; i < schedules.length; i += maxItemsPerRequest) {
+        final batch = schedules.sublist(
+          i,
+          i + maxItemsPerRequest > schedules.length ? schedules.length : i + maxItemsPerRequest,
+        );
+        batches.add(batch);
+      }
+
+      print('Total schedules: ${schedules.length}, Batches: ${batches.length}');
+
+      // Send each batch sequentially
+      for (var batchIndex = 0; batchIndex < batches.length; batchIndex++) {
+        final batch = batches[batchIndex];
+        final scheduleData = batch.map((schedule) => schedule.toJson()).toList();
+
+        print('Sending batch ${batchIndex + 1}/${batches.length} with ${batch.length} schedules');
+
+        final response = await _api.post(
+          ApiManager.addAllSchedule,
+          data: scheduleData,
+        );
+
+        if (response.statusCode == 201 || response.statusCode == 200) {
+          print('Successfully added batch ${batchIndex + 1}: ${response.data}');
+        } else {
+          print('Failed to add batch ${batchIndex + 1}: ${response.statusCode} ${response.data}');
+          print('Response headers: ${response.headers}');
+          throw Exception(
+            'Failed to add batch ${batchIndex + 1}: ${response.statusCode} ${response.data}',
+          );
+        }
+      }
+
+      print('All ${schedules.length} schedules added successfully');
     } on DioException catch (e) {
-      print('Error adding schedules: ${e.message}');
-      throw Exception('Failed to add schedules: $e');
+      if (e.response?.statusCode == 405) {
+        print('405 Method Not Allowed: Check the HTTP method and endpoint');
+        print('Requested URL: ${e.requestOptions.uri}');
+        print('Method: ${e.requestOptions.method}');
+        print('Response data: ${e.response?.data}');
+        print('Response headers: ${e.response?.headers}');
+        final allowedMethods = e.response?.headers['allow']?.join(', ');
+        print('Allowed methods: $allowedMethods');
+      }
+      throw Exception('Failed to add schedules: ${e.message}');
+    } catch (e) {
+      print('Unexpected error: $e');
+      throw Exception('Unexpected error: $e');
     }
   }
 
