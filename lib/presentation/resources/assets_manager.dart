@@ -11,4 +11,5 @@ class ImageAssets {
   static const String homeIcon = "$ICON_PATH/home.svg";
   static const String userIcon = "$ICON_PATH/user.svg";
   static const String empty = "$IMAGE_PATH/empty.svg";
+  static const String emptyNote = "$IMAGE_PATH/empty_note.svg";
 }
