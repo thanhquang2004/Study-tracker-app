@@ -23,8 +23,6 @@ class ScheduleContain extends StatelessWidget {
             schedule: schedule,
           )),
       child: Container(
-        width: 180,
-        height: 100,
         margin: const EdgeInsets.only(right: AppSize.s12),
         padding: const EdgeInsets.all(AppSize.s12),
         decoration: BoxDecoration(
