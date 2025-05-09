@@ -29,8 +29,8 @@ class _LoginViewState extends State<LoginView> {
             listTextField: [
               AuthenTextField(
                 controller: state.emailController,
-                label: AppStrings.email,
-                hint: AppStrings.email,
+                label: AppStrings.username,
+                hint: AppStrings.username,
                 prefixIcon: Icons.email,
               ),
               AuthenTextField(
