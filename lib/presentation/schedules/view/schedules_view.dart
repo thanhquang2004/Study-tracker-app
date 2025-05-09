@@ -147,26 +147,20 @@ class ScheduleContent extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    state.title,
-                    style: getBoldStyle(fontSize: AppSize.s24),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: Color(int.parse(state.color.substring(1), radix: 16) | 0xFF000000),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Text(
-                    StringExtension(state.category).capitalizeFirst!,
-                    style: getRegularStyle(color: XColors.neutral_9, fontSize: AppSize.s14),
-                  ),
-                ),
-              ],
+            Text(
+              state.title,
+              style: getBoldStyle(fontSize: AppSize.s20),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: Color(int.parse(state.color.substring(1), radix: 16) | 0xFF000000),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Text(
+                StringExtension(state.category).capitalizeFirst!,
+                style: getRegularStyle(color: XColors.neutral_9, fontSize: AppSize.s14),
+              ),
             ),
             const SizedBox(height: 16),
             _buildDetailItem('Start', dateFormat.format(state.startDate!)),
