@@ -23,9 +23,9 @@ class RoadmapService extends RoadmapRepository {
   @override
   Future<RoadmapResponse> generateRoadmap(String promtData) async {
     try {
-      // final response = await _api.post(ApiManager.generateRoadmap, data: {"info": promtData});
-      // return RoadmapResponse.fromJson(response.data);
-      return RoadmapResponse.fromJson(roadmapData);
+      final response = await _api.post(ApiManager.generateRoadmap, data: {"info": promtData});
+      return RoadmapResponse.fromJson(response.data);
+      // return RoadmapResponse.fromJson(roadmapData);
     } on DioException catch (e) {
       print('Error generating roadmap: ${e.message}');
       rethrow;
